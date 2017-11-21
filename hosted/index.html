@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project 2 [rich media]</title>
+    <meta charset="utf-8"/>
+    <link href="/assets/index.css" type="text/css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+	<script src="/assets/compiled.js"> </script>
+</head>
+<body id="body">
+<header>
+    <h1>Project 2 [rich media]</h1>
+  </header>
+  
+  <div class="main-wrapper">
+    
+    
+  <div id="canvasArea">
+    <canvas id="canvas_back" height="648" width="1152">Please use an HTML 5 browser</canvas>
+    <canvas id="canvas_main" height="648" width="1152">Please use an HTML 5 browser</canvas>
+    <canvas id="canvas_overlay" height="648" width="1152">Please use an HTML 5 browser</canvas>
+    
+    <!-- this is a tes of popup windows over the canvas (for login stuff or something). one is a basic one, one has an input field -->
+    <div class="popupContainer">
+      <div id="test-popup" class="popup statusWindow hidden" >
+        <b class="header">Test window: </b>
+        <div id="test-popup-title" class="status"> </div>
+        <div id="test-popup-data" class="status">
+          <p class="opt">- test data -</p>
+        </div>
+      </div>
+      
+      <div id="test-login" class="popup statusWindow hidden" style="margin-top: -40px">
+        <div class="headerBox noSelect">
+          <b id="login-tab" class="left">Login</b>
+          <b id="signup-tab" class="right inactive">Signup</b>
+          <br style="clear: both" />
+        </div>
+        <div id="login" class="status" style="margin: 0.5em">
+          <input type="text" id="test-login-name" style="float: left" placeholder="username"/> 
+          <br/><hr style="margin: 0.3em; border: none" /> 
+          <input type="password" id="test-login-pass" placeholder="password"/>
+          <input type="button" id="login-submit" value="Login" />
+        </div>
+          
+        <div id="signup" class="status hidden" style="margin: 0.5em">
+          <input type="text" id="test-signup-name" style="float: left" placeholder="username"/> 
+          <br/><hr style="margin: 0.3em; border: none; " /> 
+          <input type="password" id="test-signup-pass" style="float: left"  placeholder="password"/>
+          <br/><hr style="margin: 0.3em; border: none" /> 
+          <input type="password" id="test-signup-pass2" placeholder="confirm password"/>
+          <input type="button" id="signup-submit" value="Signup" />
+        </div>
+      </div>    
+    </div>
+
+  </div>  
+  
+  </div>
+  
+  <div id="footer">
+    <p class="header">- Copyright 2017 Danielle Carmi - </p>
+    <p>All rights reserved</p>
+  </div>
+
+  <div id="audio" class="hidden">
+    <audio id="bgAudio" controls loop></audio>
+    <audio id="effectAudio" controls></audio>
+  </div>
+  
+    
+</body>
+</html>

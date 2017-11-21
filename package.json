@@ -1,0 +1,41 @@
+{
+  "name": "project3",
+  "version": "1.0.0",
+  "description": "rogue-like legend of zelda",
+  "main": "./server/app.js",
+  "scripts": {
+    "test": "echo \"Tests complete\"",
+    "pretest": "eslint ./server --fix",
+    "start": "node ./server/app.js",
+    "nodemon": "nodemon --watch ./server ./server/app.js",
+    "watch": "babel --watch ./client --out-file ./hosted/compiled.js",
+    "build": "babel ./client --out-file ./hosted/compiled.js"
+  },
+  "author": "Us Cody, Just Us",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^2.0.4",
+    "xxhashjs": "^0.2.1",
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "connect-redis": "^3.3.2",
+    "cookie-parser": "^1.3.3",
+    "csurf": "^1.8.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.13.0",
+    "helmet": "^1.3.0",
+    "mongoose": "^4.4.6",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nodemon": "^1.12.1"
+  }
+}
