@@ -1,0 +1,468 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding:0;
+  background-color: #ccc;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+}
+
+.main-wrapper {
+  width: 1152px;
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0 auto;
+  //background-color: #ffffff;
+} /*just a class to contain our content*/
+
+header{
+  text-align: center;
+}
+
+canvas {
+  border-radius: 7px;
+  border: 1px solid #aaa;
+  cursor: none;
+}
+
+/* start of css for the status/popup window things*/
+.statusWindow {
+  display: inline-block;
+  border-radius: 3px;
+  border: 2px solid #2e2e2e;
+  margin: 0 auto;
+  margin-top: 3px;
+  padding: 0;
+  background-color: #ffffff;
+}
+.statusWindow .header {
+  display: block;
+  background-color: #9268ef;
+  padding: 0.5em;
+  margin-bottom: 0px;
+  color: #efefef;
+}
+.statusWindow .headerBox {
+  display: block;
+  width: 100%;
+  background-color: #9268ef;
+  padding: 0px;
+  margin: 0px;
+  color: #efefef;
+}
+.statusWindow .headerBox .left {
+  display: block;
+  width: 50%;
+  float: left;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.statusWindow .headerBox .right {
+  display: block;
+  width: 50%;
+  float: right;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.statusWindow .active{
+
+}
+.statusWindow .inactive{
+  background-color: #baa4ea;
+  color: #393939;
+}
+
+.statusWindow .status {
+  padding: 0.1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.1em;
+}
+.statusWindow .status p {
+  padding: 0.2em;
+  display: block;
+  margin: 3px;
+}
+.opt {
+  transition: .3s background-color;
+  border-radius: 2px;
+  display: inline-block;
+}
+.opt:hover{
+  background-color: #cbcbcb;
+}
+.popup {
+  position: absolute;
+  display: inline-block;
+  vertical-align:  middle;
+  background: white;
+  //color: aqua;
+  z-index: 3;
+  margin: 0;
+  top: 50%;   
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;  
+}
+.popupContainer {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  //background: gray;
+  text-align: center;
+  vertical-align: middle;
+  pointer-events: none;  
+}
+/*end of window css*/
+
+
+
+#canvasArea {
+  height: 648px;
+  position: relative;
+} /*This is the container for the layered canvases*/
+
+#canvas_back { 
+  position: absolute;
+  z-index: 0;
+}
+#canvas_main {
+  position: absolute;
+  z-index: 1;
+}
+#canvas_overlay { 
+  position: absolute;
+  z-index: 2;
+}
+
+#designDoc{
+  margin: 0 auto;
+  margin-top: 10px;
+  border: 1px solid #aaa;
+  width: 35%;
+  border-radius: 5px;
+  background-color: #bbb;
+}
+#designDoc h3{
+  text-align: center;
+}
+#designDoc img {
+  display: block;
+  margin: auto;
+}
+
+#footer {
+  //width: 85%;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 2em;;
+  padding: 0.2em;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #9268ef;
+}
+#footer p {
+  font-size: 1em;
+  font-weight: bold;
+  color: #efefef;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.hidden {
+  display: none;
+} /*hide section - can be appended/removed to classlist with js*/
+.show {
+  display: block;
+} /*show section - can be appended/removed to classlist with js*/
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+  supported by Chrome and Opera */
+} /* so that the canvas cant be selected and mess up gameplay*/
+
+
+#logo {
+    height: 40px;
+    width: 40;
+    padding-top: 5px;
+    float:left;
+    border-radius: 8px;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: #55acee;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: white;
+    font-size: 1.3em;
+    float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: inherit;
+    transition: background-color 0.4s ease;
+}
+
+.navlink a:hover{
+    transition: background-color 0.8s ease;
+    background-color: #66bdff;
+}
+
+.slimeForm {
+    border: 2px solid #338acc;
+    height: 35px;
+    width: 710px;
+    margin-top:0px;
+    padding-top:10px;
+    background-color: #55acee;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.slimeForm label {
+    display: inline-block;
+    //width: 50px;
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 1.2em;
+    float: left;
+    color: white;
+}
+
+.slimeForm input[type=text] {
+    float:left;
+}
+
+.makeSlimeSubmit {
+    transition: background-color 0.4s ease;
+    display: inline-block;
+    width: 90px;
+    background-color: #55acee;
+    border-radius: 2px;
+    color: white;
+    text-decoration: none;
+}
+
+.makeSlimeSubmit:link, .makeSlimeSubmit:visited, .makeSlimeSubmit:hover, .makeSlimeSubmit:active {
+    color: white;
+}
+
+.makeSlimeSubmit:hover {
+    transition: background-color 0.4s ease;
+    background-color: #338acc;
+}
+
+.mainForm {
+    height: 300px;
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 350px;
+    font-size: 1.2em;
+}
+
+.mainForm h3 {
+    text-align: center;
+}
+
+.mainForm label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 1.2em;
+}
+
+.formSubmit {
+    transition: background-color 0.4s ease;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 14px;
+    font-size: 1.2em;
+    width: 100px;
+    background-color: #55acee;
+    border-radius: 2px;
+    border-color: #66acee;
+    padding: 3px 0px;
+    color: white;
+    text-decoration: none;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+    color: white;
+}
+
+.formSubmit:hover {
+    transition: background-color 0.4s ease;
+    background-color: #338acc;
+}
+
+#user, #pass, #pass2 {
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border-radius: 6px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px #55acee;
+}
+
+#slimeMessage {
+    display:none;
+    top: 250px;
+    width: 250px;
+    height: 650px;
+    position: absolute;
+    z-index: 200;
+    right: 0px;
+    overflow: hidden;
+}
+
+#slimeMessage h3 {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+
+#speech {
+    height: 120px;
+    width: 250px;
+    z-index:300;
+}
+
+#errorMessage {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: red;
+    font-style: italic;
+}
+
+#slime {
+    z-index: 225;
+    margin-top: -20px;
+    margin-left: 135px;
+    height: 450px;
+    width: 300px;
+    -ms-transform: rotate(330deg);
+    -webkit-transform: rotate(330deg); 
+    transform: rotate(330deg);
+}
+
+#slimes {
+    width: 40%;
+    min-width: 400px;
+    border: 2px solid #55acee;
+    border-radius: 4px;
+    margin: 0 auto;
+    padding: 0.5em;
+    padding-right: 0.7em;
+    margin-top: 100px;
+}
+
+.slime {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 2px solid #55acee;
+    border-radius: 4px;
+    background-color: #55acee;
+    padding: 10px;
+    min-height:60px;
+    overflow: hidden;
+}
+
+.slime:hover {
+    transition: border-color 0.2s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 2.6s ease-out;
+    background-color: #66bfff;
+}
+
+img.slimeFace {
+    margin-left: 25px;
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 4px;
+    margin-top:10px;
+    float:left;
+}
+
+h3.emptySlime {
+    width: 400px;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 18px;
+}
+
+h3.slimeName {
+    display: inline-block;
+    text-align: left;
+    font-weight: bold;
+    padding-left: 65px;
+    font-size: 1.5em;
+}
+
+h3.slimeFood {
+  display: inline-block;
+    font-weight: bold;
+    padding-right: 0.2em;
+    font-size: 1.5em;
+}
+
+h3.slimeAge {
+    display: block;
+    float:right;
+    text-align: left;
+    font-weight: bold;
+    padding-right: 40px;
+    font-size: 1.5em;
+}
+
+#slimeName {
+  width: 10em;
+}
+#slimeAge {
+  width: 6em;
+}
+#slimeFood{
+  width: 10em;
+  margin-right: 1.2em;
+}
+
+.slime:first-child {
+    margin-top: 10px;
+}
+
+.slime:last-child {
+    margin-bottom:10px;
+}
+
