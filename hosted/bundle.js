@@ -400,7 +400,7 @@ var submitLogin = function submitLogin() {
 };
 
 var init = function init() {
-  setupCanvas();
+  //setupCanvas(); 
   setupSockets();
 
   //get user
@@ -408,14 +408,14 @@ var init = function init() {
 
   resetGame();
 
-  setupSound();
+  //setupSound();
 
-  preloadImages(toLoadImgs, IMAGES);
-  preloadImages(toLoadAnims, ANIMATIONS);
-  animationFrame = requestAnimationFrame(stateHandler);
+  //preloadImages(toLoadImgs, IMAGES);
+  //preloadImages(toLoadAnims, ANIMATIONS);
+  //animationFrame = requestAnimationFrame(stateHandler);
 
   //play audio
-  playBgAudio();
+  //playBgAudio();
 };
 
 //window.onload = init;
@@ -448,13 +448,13 @@ var toggleDebug = function toggleDebug() {
 };
 
 //ONBLUR
-window.onblur = function () {
-  pauseGame();
-  //console.log('blur');
-};
+window.onblur = function () {}
+//pauseGame();
+//console.log('blur');
+
 //ONFOCUS
-window.onfocus = function () {
-  resumeGame();
+;window.onfocus = function () {
+  //resumeGame();
   //console.log('focus');
 };
 'use strict';
@@ -518,7 +518,7 @@ var SlimeList = function SlimeList(props) {
     return React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: img, alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: img, alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -625,17 +625,18 @@ var RenderSlimeList = function RenderSlimeList() {
     '  ',
     React.createElement(
       'div',
-      { style: { display: 'inline', float: 'right' }, id: 'showSlimes', className: 'navlink' },
+      { style: { display: 'inline-block', float: 'right' }, id: 'showSlimes', className: 'navlink' },
       React.createElement(
         'a',
         null,
         'Show Your Slimes'
       )
     ),
+    React.createElement('br', null),
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/0.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/0.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -650,7 +651,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/1.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/1.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -665,7 +666,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/2.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/2.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -680,7 +681,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/3.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/3.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -695,7 +696,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/4.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/4.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -710,7 +711,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/5.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/5.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -725,7 +726,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/6.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/6.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -740,7 +741,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/7.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/7.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -755,7 +756,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/8.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/8.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -770,7 +771,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/9.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/9.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -785,7 +786,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/10.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/10.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -800,7 +801,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/11.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/11.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -815,7 +816,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/12.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/12.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -830,7 +831,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/13.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/13.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -845,7 +846,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/14.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/14.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -860,7 +861,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/15.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/15.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -875,7 +876,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/16.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/16.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -890,7 +891,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/17.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/17.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -905,7 +906,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/18.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/18.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -920,7 +921,7 @@ var RenderSlimeList = function RenderSlimeList() {
     React.createElement(
       'div',
       { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/19.png', alt: 'slime face', className: 'slimeFace' }),
+      React.createElement('img', { src: '/assets/img/19.png', alt: 'slime face', className: 'slimeView' }),
       React.createElement(
         'h3',
         { className: 'slimeName' },
@@ -937,7 +938,7 @@ var RenderSlimeList = function RenderSlimeList() {
 
 $(document).ready(function () {
   getToken();
-  init();
+  setupSockets();
 
   document.querySelector('#slimeListButton').onclick = function () {
     ReactDOM.render(React.createElement(RenderSlimeList, null), document.querySelector('#slimes'));
@@ -1341,6 +1342,73 @@ var removeStartupEvents = function removeStartupEvents() {
 }; //remove those events
 
 //endregion
+'use strict';
+
+var SLIMES = {
+  0: {
+    name: '',
+    type: '',
+    stats: {
+      atk: 0,
+      spd: 0
+    },
+    skills: []
+  }
+};
+
+var STATUS = {
+  stun: {
+    name: 'stun',
+    turns: 1,
+    buff: [],
+    debuff: []
+  }
+};
+
+var TYPES = {
+  normal: {
+    name: 'normal',
+    weakTo: [],
+    resistTo: []
+  },
+  fire: {
+    name: 'fire',
+    weakTo: ['water'],
+    resistTo: ['grass']
+  },
+  water: {
+    name: 'water',
+    weakTo: ['grass'],
+    resistTo: ['fire']
+  },
+  grass: {
+    name: 'grass',
+    weakTo: ['fire'],
+    resistTo: ['water']
+  },
+  dark: {
+    name: 'dark',
+    weakTo: ['light'],
+    resistTo: ['water']
+  },
+  light: {
+    name: 'light',
+    weakTo: ['dark'],
+    resistTo: ['fire']
+  }
+};
+
+var SKILLS = {
+  whack: {
+    name: 'whack',
+    type: TYPES.normal,
+    dmg: 10,
+    heal: 0,
+    status: 0,
+    buff: 0,
+    debuff: 0
+  }
+};
 "use strict";
 
 var socket = void 0,

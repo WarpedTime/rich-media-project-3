@@ -12,15 +12,32 @@
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
 <body> 
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
-    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
+  <nav><a href="/login"><img id="logo" src="/assets/img/favicon.png" alt="logo"/></a>
+    <div class="navlink"><b>Gacha Slimez:</b></div>
+    <div class="navlink nav-right"><a id="signupButton" href="/signup">Sign up</a></div>
+    <div class="navlink nav-right"><a id="loginButton" href="/login">Login</a></div>
+    
+  </nav>
+  <nav id="sub-nav">
+    <div id="aboutButton" class="navlink"><a>About</a></div>
+    <div id="docButton" class="navlink"><a>Documentation</a></div>  
   </nav>
   
-  <section id="content"></section>
+  
+  <section class='fill-height'>
+    <section class="two-thirds left"><img id="logo" src="/assets/img/favicon.png" alt="face logo"/><p>[banner]</p></section>
+    <section id="content" class="one-third right"></section>
+  </section>
+  
+  <br style="clear: both" />
   
   <div id="slimeMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage">Wrong username or password</span></h3><img id="slime" src="assets/img/domo.png" alt="slime"/>
+  </div>
+  
+  <div id="footer">
+    <p class="header">- Copyright 2017-2018 Danielle Carmi - </p>
+    <p>All rights reserved</p>
   </div>
   
   <script src="/assets/loginBundle.js"></script>

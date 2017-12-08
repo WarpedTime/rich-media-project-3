@@ -50,7 +50,7 @@ const SlimeList = function(props) {
     img = '/assets/img/'+img;
     return (
       <div key={slime._id} className='slime'>
-        <img src={img} alt='slime face' className='slimeFace' />
+        <img src={img} alt='slime face' className='slimeView' />
         <h3 className='slimeName'>Nickname: {slime.name}</h3>
         <h3 className='slimeAge'>id: {slime.id}</h3>
       </div>
@@ -125,123 +125,125 @@ const getToken = () => {
 
 const RenderSlimeList = () => {
   return <div className='slimeList'>
-    <h2 style={{display: 'inline-block'}} >Slime Dex:</h2>  <div style={{display: 'inline', float: 'right'}}  id="showSlimes" className="navlink"><a>Show Your Slimes< /a>< /div>
-
+    <h2 style={{display: 'inline-block'}} >Slime Dex:</h2>  <div style={{display: 'inline-block', float: 'right'}}  id="showSlimes" className="navlink"><a>Show Your Slimes< /a>< /div>
+    
+    <br/>
+    
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/0.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/0.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: base</h3>
       <h3 className='slimeAge'>id: 0</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/1.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/1.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Naruto</h3>
       <h3 className='slimeAge'>id: 1</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/2.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/2.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Navi</h3>
       <h3 className='slimeAge'>id: 2</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/3.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/3.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Death the Kid</h3>
       <h3 className='slimeAge'>id: 3</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/4.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/4.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Saitama</h3>
       <h3 className='slimeAge'>id: 4</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/5.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/5.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Pikachu</h3>
       <h3 className='slimeAge'>id: 5</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/6.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/6.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Link</h3>
       <h3 className='slimeAge'>id: 6</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/7.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/7.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Angel</h3>
       <h3 className='slimeAge'>id: 7</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/8.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/8.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Devil</h3>
       <h3 className='slimeAge'>id: 8</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/9.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/9.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Shades</h3>
       <h3 className='slimeAge'>id: 9</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/10.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/10.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Maple Slime</h3>
       <h3 className='slimeAge'>id: 10</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/11.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/11.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Bat</h3>
       <h3 className='slimeAge'>id: 11</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/12.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/12.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Wings</h3>
       <h3 className='slimeAge'>id: 12</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/13.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/13.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Mudkip</h3>
       <h3 className='slimeAge'>id: 13</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/14.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/14.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Derp</h3>
       <h3 className='slimeAge'>id: 14</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/15.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/15.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Totoro</h3>
       <h3 className='slimeAge'>id: 15</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/16.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/16.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Penguin</h3>
       <h3 className='slimeAge'>id: 16</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/17.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/17.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Goggles</h3>
       <h3 className='slimeAge'>id: 17</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/18.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/18.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Rin Okumura</h3>
       <h3 className='slimeAge'>id: 18</h3>
     </div>
     <div key={slime._id} className='slime'>
-      <img src='/assets/img/19.png' alt='slime face' className='slimeFace' />
+      <img src='/assets/img/19.png' alt='slime face' className='slimeView' />
       <h3 className='slimeName'>Name: Liquid Slime</h3>
       <h3 className='slimeAge'>id: 19</h3>
     </div>
   
-  </div>
+  < /div>
 }
 
 $(document).ready(function(){
   getToken();
-  init();
+  setupSockets();
   
   document.querySelector('#slimeListButton').onclick = () => {
     ReactDOM.render(
       <RenderSlimeList />, document.querySelector('#slimes')
     );
     document.querySelector('#showSlimes').onclick = () => {
-    loadSlimesFromServer();
-  };
+      loadSlimesFromServer();
+    };
   }
   document.querySelector('#aboutButton').onclick = () => {
     ReactDOM.render(

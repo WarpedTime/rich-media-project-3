@@ -144,7 +144,7 @@ const submitLogin = () => {
 };
 
 const init = () => {
-  setupCanvas(); 
+  //setupCanvas(); 
   setupSockets();
   
   //get user
@@ -152,14 +152,14 @@ const init = () => {
   
   resetGame();
   
-  setupSound();
+  //setupSound();
   
-  preloadImages(toLoadImgs, IMAGES);
-  preloadImages(toLoadAnims, ANIMATIONS);
-  animationFrame = requestAnimationFrame(stateHandler);
+  //preloadImages(toLoadImgs, IMAGES);
+  //preloadImages(toLoadAnims, ANIMATIONS);
+  //animationFrame = requestAnimationFrame(stateHandler);
   
   //play audio
-  playBgAudio();
+  //playBgAudio();
 };
 
 //window.onload = init;
@@ -193,11 +193,11 @@ const toggleDebug =  () => {
 
 //ONBLUR
 window.onblur = function() { 
-  pauseGame();
+  //pauseGame();
   //console.log('blur');
 }
 //ONFOCUS
 window.onfocus = function() {
-  resumeGame();
+  //resumeGame();
   //console.log('focus');
 };

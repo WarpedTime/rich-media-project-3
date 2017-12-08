@@ -13,76 +13,45 @@
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
 <body>
-  <header>
-    <div class="navlink" style="float: right; display: inline-block; position: absolute; right: 1vw"><a href="/logout">Log out</a></div>
-    <div style="position: absolute; top:1vh">
-      <div id="slimeListButton" class="navlink" style=" display: inline-block;"><a>Slime List</a></div>
-    <div id="aboutButton" class="navlink" style=" display: inline-block;"><a>About</a></div>
-    <div id="docButton" class="navlink" style=" display: inline-block;"><a>Documentation</a></div>
-    </div>
-    <h1 style="display: inline-block">Project 2 [rich media]</h1>
-  </header>
   
-  <div class="main-wrapper">
-  
-  <section id="makeSlime">
-  </section>
+  <nav><a href="/login"><img id="logo" src="/assets/img/favicon.png" alt="logo"/></a>
+    <div class="navlink"><b>Gacha Slimez:</b></div>
+    
+    <div id="docButton" class="navlink"><a>[global things]</a></div>
+    <div id="docButton" class="navlink"><a>[updates/news]</a></div>
+    
+    <div id="aboutButton" class="navlink nav-right"><a>[user][user-icon]</a></div>
+  </nav>
+  <nav id="sub-nav">
+    <div id="aboutButton" class="navlink"><a>About</a></div>
+    <div id="slimeListButton" class="navlink"><a>Slime List</a></div>
+    <div id="docButton" class="navlink"><a>Documentation</a></div>  
+    <div class="navlink nav-right" ><a href="/logout">Log out</a></div>
+  </nav>
       
-  <section id="slimes">
-  </section>
-  
-    <div class="main-wrapper">
+    <section id="makeSlime">
+    </section>
     
-    
-  <div id="canvasArea">
-    <canvas id="canvas_back" height="648" width="1152">Please use an HTML 5 browser</canvas>
-    <canvas id="canvas_main" height="648" width="1152">Please use an HTML 5 browser</canvas>
-    <canvas id="canvas_overlay" height="648" width="1152">Please use an HTML 5 browser</canvas>
-    
-    <!-- this is a tes of popup windows over the canvas (for login stuff or something). one is a basic one, one has an input field -->
-    <div class="popupContainer">
-      <div id="test-popup" class="popup statusWindow hidden" >
-        <b class="header">Test window: </b>
-        <div id="test-popup-title" class="status"> </div>
-        <div id="test-popup-data" class="status">
-          <p class="opt">- test data -</p>
-        </div>
-      </div>
-      
-      <div id="test-login" class="popup statusWindow hidden" style="margin-top: -40px">
-        <div class="headerBox noSelect">
-          <b id="login-tab" class="left">Login</b>
-          <b id="signup-tab" class="right inactive">Signup</b>
-          <br style="clear: both" />
-        </div>
-        <div id="login" class="status" style="margin: 0.5em">
-          <input type="text" id="test-login-name" style="float: left" placeholder="username"/> 
-          <br/><hr style="margin: 0.3em; border: none" /> 
-          <input type="password" id="test-login-pass" placeholder="password"/>
-          <input type="button" id="login-submit" value="Login" />
-        </div>
-          
-        <div id="signup" class="status hidden" style="margin: 0.5em">
-          <input type="text" id="test-signup-name" style="float: left" placeholder="username"/> 
-          <br/><hr style="margin: 0.3em; border: none; " /> 
-          <input type="password" id="test-signup-pass" style="float: left"  placeholder="password"/>
-          <br/><hr style="margin: 0.3em; border: none" /> 
-          <input type="password" id="test-signup-pass2" placeholder="confirm password"/>
-          <input type="button" id="signup-submit" value="Signup" />
-        </div>
-      </div>    
+    <div id="slimeViewContainer">
+      <section id="slimes" class="view-pannel left">
+      </section>
+      <section id="slimeInfoPannel" class="detail-pannel">
+        <h3>- Details -</h3>
+        <img src='/assets/img/17.png' alt='slime' />
+        <h3>Name: Goggles</h3>
+        <h3>id: 17</h3>  
+      </section>
     </div>
-
-  </div>  
   
-  </div>  
+  
+  <br style="clear:both" />
     
   <div id="slimeMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="slime" src="assets/img/player - Copy.png" alt="slime"/>
   </div>
   
   <div id="footer">
-    <p class="header">- Copyright 2017 Danielle Carmi - </p>
+    <p class="header">- Copyright 2017-2018 Danielle Carmi - </p>
     <p>All rights reserved</p>
   </div>
 

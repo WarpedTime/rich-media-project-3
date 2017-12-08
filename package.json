@@ -1,11 +1,11 @@
 {
-  "name": "Logins",
+  "name": "430-project-3",
   "version": "1.0.0",
   "engines": {
     "node": "7.5.0",
     "npm": "4.0.5"
   },
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "rich media project 3",
   "main": "./server/app.js",
   "scripts": {
     "nodemon": "nodemon --watch ./server ./server/app.js",
@@ -24,7 +24,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Danielle Carmi",
   "license": "Apache 2.0",
   "dependencies": {
     "body-parser": "^1.15.0",

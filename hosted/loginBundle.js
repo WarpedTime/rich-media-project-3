@@ -123,34 +123,8 @@ var setupLogin = function setupLogin(csrf) {
 };
 
 //todo vv replace with react element in p3
-var showLoginBox = function showLoginBox() {
-  /*
-  document.querySelector('#test-login').classList.remove('hidden');
-  document.querySelector('#login-submit').onclick = submitLogin;
-  
-  document.querySelector('#signup-tab').onclick = () => {
-    document.querySelector('#login').classList.add('hidden');
-    document.querySelector('#signup').classList.remove('hidden');
-    
-    document.querySelector('#signup-tab').classList.remove('inactive');
-    document.querySelector('#login-tab').classList.add('inactive');
-  };
-  document.querySelector('#login-tab').onclick = () => {
-    document.querySelector('#login').classList.remove('hidden');
-    document.querySelector('#signup').classList.add('hidden');
-    
-    document.querySelector('#signup-tab').classList.add('inactive');
-    document.querySelector('#login-tab').classList.remove('inactive');
-  };
-  suspendPlayerControls();
-  removeStartupEvents();
-  */
-};
-var hideLoginBox = function hideLoginBox() {
-  //document.querySelector('#test-login').classList.add('hidden');
-  //restorePlayerControls();
-  //assignStartupEvents();
-};
+var showLoginBox = function showLoginBox() {};
+var hideLoginBox = function hideLoginBox() {};
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {

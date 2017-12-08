@@ -2,167 +2,72 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding:0;
-  background-color: #ccc;
+  padding: 0;
+  background-color: #fff;
   font-family:"Trebuchet MS", Helvetica, sans-serif;
 }
 
 .main-wrapper {
-  width: 1152px;
+  width: 100%;
   padding-top: 1em;
-  padding-left: 1em;
-  padding-right: 1em;
+  //padding-left: 1em;
+  //padding-right: 1em;
   margin: 0 auto;
-  //background-color: #ffffff;
-} /*just a class to contain our content*/
+  background-color: #eaecff;
+} /*just a class to contain content*/
 
 header{
   text-align: center;
 }
 
-canvas {
-  border-radius: 7px;
-  border: 1px solid #aaa;
-  cursor: none;
+#test {
+  position: absolute;
+  left: 100vw;
+  transition: all ease-in-out 0.5s;
 }
 
-/* start of css for the status/popup window things*/
-.statusWindow {
-  display: inline-block;
-  border-radius: 3px;
-  border: 2px solid #2e2e2e;
-  margin: 0 auto;
-  margin-top: 3px;
-  padding: 0;
-  background-color: #ffffff;
+.slide-in{
+  transform: translateX(-300px);
 }
-.statusWindow .header {
-  display: block;
-  background-color: #9268ef;
-  padding: 0.5em;
-  margin-bottom: 0px;
-  color: #efefef;
-}
-.statusWindow .headerBox {
-  display: block;
-  width: 100%;
-  background-color: #9268ef;
-  padding: 0px;
-  margin: 0px;
-  color: #efefef;
-}
-.statusWindow .headerBox .left {
-  display: block;
+
+.half{
   width: 50%;
+}
+
+.one-third{
+  width: 33.3%;
+}
+.two-thirds{
+  width: 66.6%;
+}
+.detail-pannel{
+  width: 100px;
+}
+.view-pannel{
+  width: 77%;
+}
+
+.left{
   float: left;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  background-color: aqua
 }
-.statusWindow .headerBox .right {
-  display: block;
-  width: 50%;
+.right{
   float: right;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-.statusWindow .active{
-
-}
-.statusWindow .inactive{
-  background-color: #baa4ea;
-  color: #393939;
+  background-color: chartreuse
 }
 
-.statusWindow .status {
-  padding: 0.1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.1em;
-}
-.statusWindow .status p {
-  padding: 0.2em;
-  display: block;
-  margin: 3px;
-}
-.opt {
-  transition: .3s background-color;
-  border-radius: 2px;
-  display: inline-block;
-}
-.opt:hover{
-  background-color: #cbcbcb;
-}
-.popup {
-  position: absolute;
-  display: inline-block;
-  vertical-align:  middle;
-  background: white;
-  //color: aqua;
-  z-index: 3;
-  margin: 0;
-  top: 50%;   
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: auto;  
-}
-.popupContainer {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  //background: gray;
-  text-align: center;
-  vertical-align: middle;
-  pointer-events: none;  
-}
-/*end of window css*/
-
-
-
-#canvasArea {
-  height: 648px;
-  position: relative;
-} /*This is the container for the layered canvases*/
-
-#canvas_back { 
-  position: absolute;
-  z-index: 0;
-}
-#canvas_main {
-  position: absolute;
-  z-index: 1;
-}
-#canvas_overlay { 
-  position: absolute;
-  z-index: 2;
-}
-
-#designDoc{
-  margin: 0 auto;
-  margin-top: 10px;
-  border: 1px solid #aaa;
-  width: 35%;
-  border-radius: 5px;
-  background-color: #bbb;
-}
-#designDoc h3{
-  text-align: center;
-}
-#designDoc img {
-  display: block;
-  margin: auto;
+.fill-height{
+  min-height: 73.5vh;
 }
 
 #footer {
-  //width: 85%;
-  width: 100%;
   display: block;
   margin: 0 auto;
-  margin-top: 2em;;
+  margin-top: 0.3em;;
   padding: 0.2em;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #9268ef;
+  background-color: #383838;
 }
 #footer p {
   font-size: 1em;
@@ -179,7 +84,6 @@ canvas {
 .show {
   display: block;
 } /*show section - can be appended/removed to classlist with js*/
-
 .noSelect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -189,34 +93,32 @@ canvas {
   supported by Chrome and Opera */
 } /* so that the canvas cant be selected and mess up gameplay*/
 
-
 #logo {
-    height: 40px;
-    width: 40;
-    padding-top: 5px;
-    float:left;
-    border-radius: 8px;
+  height: 40px;
+  width: 40;
+  padding-top: 5px;
+  padding-left: 5px;
+  float:left;
 }
 
 nav {
-    width: 100%;
-    height: 50px;
-    background-color: #55acee;
+  width: 100%;
+  height: 50px;
+  background-color: #383838;
 }
-
 nav:nth-child(1) {
-    padding-left: 25px;
+  padding-left: 25px;
 }
 
 .navlink {
-    padding: 5px;
-    padding-top: 12px;
-    padding-left: 20px;
-    color: white;
-    font-size: 1.3em;
-    float: left;
+  padding: 5px;
+  padding-top: 0.6em;
+  padding-left: 20px;
+  color: white;
+  font-size: 1.3em;
+  float: left;
+  display: inline-block;
 }
-
 .navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
     color: white;
     text-decoration: none;
@@ -225,11 +127,31 @@ nav:nth-child(1) {
     background-color: inherit;
     transition: background-color 0.4s ease;
 }
-
 .navlink a:hover{
-    transition: background-color 0.8s ease;
-    background-color: #66bdff;
+  transition: background-color 0.8s ease;
+  background-color: #646464;
 }
+
+#sub-nav {
+  height: 45px;
+  background-color: #585858;
+}
+#sub-nav .navlink {
+  padding-top: 0.5em;
+  font-size: 1.15em;
+}
+#sub-nav .navlink a:hover {
+  background-color: #838383;
+}
+
+.nav-right {
+  padding-left: 0px;
+  padding-right: 20px;
+
+  float: right;
+  display: inline-block;
+}
+
 
 .slimeForm {
     border: 2px solid #338acc;
@@ -241,7 +163,6 @@ nav:nth-child(1) {
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
-
 .slimeForm label {
     display: inline-block;
     //width: 50px;
@@ -251,7 +172,6 @@ nav:nth-child(1) {
     float: left;
     color: white;
 }
-
 .slimeForm input[type=text] {
     float:left;
 }
@@ -265,28 +185,22 @@ nav:nth-child(1) {
     color: white;
     text-decoration: none;
 }
-
 .makeSlimeSubmit:link, .makeSlimeSubmit:visited, .makeSlimeSubmit:hover, .makeSlimeSubmit:active {
     color: white;
 }
-
 .makeSlimeSubmit:hover {
     transition: background-color 0.4s ease;
     background-color: #338acc;
 }
 
 .mainForm {
-    height: 300px;
-    width: 350px;
     margin: 0 auto;
-    padding-top: 350px;
+    padding: 1em;
     font-size: 1.2em;
 }
-
 .mainForm h3 {
     text-align: center;
 }
-
 .mainForm label {
     display: inline-block;
     width: 100px;
@@ -310,11 +224,9 @@ nav:nth-child(1) {
     color: white;
     text-decoration: none;
 }
-
 .formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
     color: white;
 }
-
 .formSubmit:hover {
     transition: background-color 0.4s ease;
     background-color: #338acc;
@@ -326,7 +238,6 @@ nav:nth-child(1) {
     width: 180px;
     border-radius: 6px;
 }
-
 #user:focus, #pass:focus, #pass2:focus {
     outline: none;
     box-shadow: 0px 0px 1px 1px #55acee;
@@ -342,7 +253,6 @@ nav:nth-child(1) {
     right: 0px;
     overflow: hidden;
 }
-
 #slimeMessage h3 {
     width: 200px;
     position: absolute;
@@ -353,7 +263,7 @@ nav:nth-child(1) {
 #speech {
     height: 120px;
     width: 250px;
-    z-index:300;
+    z-index: 300;
 }
 
 #errorMessage {
@@ -374,45 +284,73 @@ nav:nth-child(1) {
     transform: rotate(330deg);
 }
 
+#slimeViewContainer {
+  width: 100%;
+  min-height: 65vh;
+  margin: 0 auto;
+  padding: 0;
+  padding-bottom: 0.45em;
+  border: 2px solid #000000;
+  border-left: none;
+  border-right: none;
+  
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background: #e0e0e0;
+}
+
 #slimes {
-    width: 40%;
-    min-width: 400px;
-    border: 2px solid #55acee;
-    border-radius: 4px;
-    margin: 0 auto;
-    padding: 0.5em;
-    padding-right: 0.7em;
-    margin-top: 100px;
+  max-height: 65vh;
+  border-radius: 4px;
+  margin: 0 auto;
+  padding: 0.5em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  background: none;
+  overflow-y: scroll;
+  display: inline-block;
+}
+
+#slimeInfoPannel{
+  //margin: 5px;
+  padding: 0.5em;
+  min-width: 100px;
+  margin-left: -5px;
+  display: inline-block;
 }
 
 .slime {
-    width: 95%;
-    margin: 0 auto;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    border: 2px solid #55acee;
-    border-radius: 4px;
-    background-color: #55acee;
-    padding: 10px;
-    min-height:60px;
-    overflow: hidden;
+  width: 250px;
+  height: 200px;
+  min-height: 60px;
+  margin: 0 auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  padding-bottom: 0.2em;
+  border: 5px solid #0d0d0d;
+  border-radius: 4px;
+  background-color: #909090;
+  overflow: hidden;
+  display: inline-block;
 }
-
 .slime:hover {
-    transition: border-color 0.2s ease-out;
-    border-color: rgba(255,255,255, 0.8);
-    transition: background-color 2.6s ease-out;
-    background-color: #66bfff;
+  transition: border-color 1.2s ease-out;
+  border-color: rgba(255,255,255, 0.8);
+  transition: background-color 1.6s ease-out;
+  background-color: #cfd5d9;
 }
 
-img.slimeFace {
-    margin-left: 25px;
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
-    border-radius: 4px;
-    margin-top:10px;
-    float:left;
+img.slimeView {
+  margin: 0;
+  padding: 0.1em;
+  height: 100px;
+  width: 100px;
+  background-color: #e3eaef;
+  border: 4px solid #0d0d0d;
+  border-left: 0px;
+  border-top: 0px;
+  display: inline-block;
 }
 
 h3.emptySlime {
@@ -422,7 +360,6 @@ h3.emptySlime {
     text-align: center;
     margin-top: 18px;
 }
-
 h3.slimeName {
     display: inline-block;
     text-align: left;
@@ -431,37 +368,13 @@ h3.slimeName {
     font-size: 1.5em;
 }
 
-h3.slimeFood {
-  display: inline-block;
-    font-weight: bold;
-    padding-right: 0.2em;
-    font-size: 1.5em;
-}
-
-h3.slimeAge {
-    display: block;
-    float:right;
-    text-align: left;
-    font-weight: bold;
-    padding-right: 40px;
-    font-size: 1.5em;
-}
-
 #slimeName {
   width: 10em;
-}
-#slimeAge {
-  width: 6em;
-}
-#slimeFood{
-  width: 10em;
-  margin-right: 1.2em;
 }
 
 .slime:first-child {
     margin-top: 10px;
 }
-
 .slime:last-child {
     margin-bottom:10px;
 }
