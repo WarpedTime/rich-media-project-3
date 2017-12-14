@@ -20,7 +20,7 @@ const makeSlime = (req, res) => {
   const num = Math.floor(Math.random() * totalSlimes);
   const slimeData = {
     id: num,
-    name: SlimeData.GetById(num).name,
+    name: SlimeData.getById(num).name,
     owner: req.session.account._id,
   };
 

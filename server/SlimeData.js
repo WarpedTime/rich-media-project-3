@@ -25,4 +25,4 @@ const getById = (id) => {
 
 module.exports.SLIMES = SLIMES;
 module.exports.total = getTotal;
-module.exports.GetById = getById;
+module.exports.getById = getById;
