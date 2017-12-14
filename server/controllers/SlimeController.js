@@ -2,7 +2,7 @@ const models = require('../models');
 const SlimeData = require('../SlimeData.js');
 
 const Slime = models.Slime;
-const totalSlimes = SlimeData.Total();
+const totalSlimes = SlimeData.total();
 
 const makerPage = (req, res) => {
   Slime.SlimeModel.findByOwner(req.session.account._id, (err, docs) => {
