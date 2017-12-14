@@ -11,38 +11,210 @@
   <script src="/socket.io/socket.io.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  
+  <style>
+  
+  .slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translate3d(-100%, 0, 0);
+  z-index: 50;
+}
+
+.slider input[type=radio] {
+  display: none;
+}
+
+.slider input[type=radio]:checked ~ .slide {
+  transform: translate3d(100%, 0, 0);
+}
+
+.slider input[type=radio]:checked + .slide {
+  transform: translate3d(0, 0, 0);
+  z-index: 100;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  min-height: 70vh;
+  max-height: 95vh;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: helvetica;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 120px;
+  font-weight: 700;
+  opacity: 1;
+  transition: transform 300ms;
+}
+
+.slider-controls {
+  position: absolute;
+  //top: 0;
+  z-index: 200;
+  text-align: center;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  margin-top: -60px;
+  padding: 10px;
+}
+
+.slider-controls label {
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.slider-controls label:checked {
+  background-color: white;
+}
+
+.red {
+  background-color: #e87d7d;
+}
+
+.yellow {
+  background-color: #e8e87d;
+}
+
+.green {
+  background-color: #7de87d;
+}
+
+.blue {
+  background-color: #7d7de8;
+}
+
+.purple {
+  background-color: #e468e4;
+}
+
+.orange {
+  background-color: #e0ae52;
+}
+  
+  
+  </style>
+  
 </head>
 <body>
+  <nav class="">
+    <div class="nav-item" style="padding-left: 0.2em;"><a><img src="/assets/img/favicon.png" alt="logo"/><b>Gacha Slimez!</b></a></div>
+    <div class="nav-item"><a><b>About</b></a></div>
+    <div class="nav-item"><a><b>Documentation</b></a></div>
+    <div id="slimeListButton" class="nav-item"><a>Slime List</a></div>
+    
+    <div class="nav-item nav-right"><a href="/logout">Log out</a></div>
+    <div id='user-data' class="nav-right nav-item"><a>
+      <b id="user-name" class="user-name">USER</b>
+      <div class="user-img "><img src="/assets/img/user-icon.png" alt="[icon]" /></div>
+    </a></div>
+  </nav>
   
-  <nav><a href="/login"><img id="logo" src="/assets/img/favicon.png" alt="logo"/></a>
-    <div class="navlink"><b>Gacha Slimez:</b></div>
+  <div class="game-nav">
+    <div class="v-div hidden"></div>
+    <div id="menu-home" class="button game-nav-item menu-purple menu-selected"><span>home</span></div>
+    <div id="menu-shop" class="button game-nav-item menu-blue"><span>shop</span></div>
+    <div id="menu-play" class="button game-nav-item menu-red"><span>play</span></div>
+    <div id="menu-slimes" class="button game-nav-item menu-orange"><span>slimes</span></div>
+    <div id="menu-misc" class="button game-nav-item"><span>GET slime!</span></div>
+    <div class="v-div-r"></div>
     
-    <div id="docButton" class="navlink"><a>[global things]</a></div>
-    <div id="docButton" class="navlink"><a>[updates/news]</a></div>
-    
-    <div id="aboutButton" class="navlink nav-right"><a>[user][user-icon]</a></div>
-  </nav>
-  <nav id="sub-nav">
-    <div id="aboutButton" class="navlink"><a>About</a></div>
-    <div id="slimeListButton" class="navlink"><a>Slime List</a></div>
-    <div id="docButton" class="navlink"><a>Documentation</a></div>  
-    <div class="navlink nav-right" ><a href="/logout">Log out</a></div>
-  </nav>
-      
-    <section id="makeSlime">
-    </section>
-    
-    <div id="slimeViewContainer">
-      <section id="slimes" class="view-pannel left">
-      </section>
-      <section id="slimeInfoPannel" class="detail-pannel">
-        <h3>- Details -</h3>
-        <img src='/assets/img/17.png' alt='slime' />
-        <h3>Name: Goggles</h3>
-        <h3>id: 17</h3>  
-      </section>
+    <div id='user-currency' class=" user-currency game-nav-item">
+      <div class="coin-box"><div class="coin-icon"><img src="/assets/img/coin.png" alt="G:"/></div> <b id="user-coins">30</b></div>
+      <div class="coin-box"><div class="coin-icon"><img src="/assets/img/gem.png" alt="G:"/></div> <b id="user-gems">22</b></div>
     </div>
+  </div>
   
+  <br />
+  
+  
+  <div id="content">
+  <section class="cards">
+    
+    <div class="cardHolder">
+    </div>
+      <div class="card card-selected">
+        <img src='/assets/img/17.png' alt='slime' />
+        <div class="card-over">
+          <i class="material-icons fav-no">favorite</i>
+          <b class="lvl">lvl: 30</b>
+        </div>
+      </div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card">meh</div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card">last</div>
+    
+    
+    <div class="side"></div>
+  </section>
+  </div>
+  
+  <br style="clear:both" />
+  
+  <section id="makeSlime" class=""></section>
   
   <br style="clear:both" />
     

@@ -1,7 +1,8 @@
 const models = require('../models');
+const SlimeData = require('../SlimeData.js');
 
 const Slime = models.Slime;
-const slimeNum = 20;
+const totalSlimes = SlimeData.Total();
 
 const makerPage = (req, res) => {
   Slime.SlimeModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -15,13 +16,11 @@ const makerPage = (req, res) => {
 };
 
 const makeSlime = (req, res) => {
-  if (!req.body.name) {
-    return res.status(400).json({ error: 'RAWR! Name is required.' });
-  }
 
+  const num = Math.floor(Math.random() * totalSlimes);
   const slimeData = {
-    name: req.body.name,
-    id: Math.floor(Math.random() * slimeNum),
+    id: num,
+    name: SlimeData.GetById(num).name,
     owner: req.session.account._id,
   };
 

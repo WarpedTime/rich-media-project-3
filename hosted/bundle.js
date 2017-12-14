@@ -1,104 +1,5 @@
 'use strict';
 
-var drawPlayers = function drawPlayers(time) {
-  //draw things
-  var keys = Object.keys(players);
-  for (var i = 0; i < keys.length; i++) {
-    var playerdrawn = players[keys[i]];
-    drawPlayer(playerdrawn);
-  }
-}; //draw all players in the players list
-
-var drawPlayer = function drawPlayer(playerdrawn) {
-  ctx.save();
-  ctx.beginPath();
-
-  ctx.fillStyle = playerdrawn.style;
-  ctx.arc(playerdrawn.x, playerdrawn.y, playerdrawn.radius, 0, Math.PI * 2, false);
-
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-};
-
-//--draw game screens-----------region
-var drawPlaceholder = function drawPlaceholder() {
-  ctx_back.fillStyle = '#626262';
-  ctx_back.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '15pt Courier';
-  ctx.fillStyle = 'white';
-  ctx.fillText('There is nothing here yet', canvas.width / 2, canvas.height / 2);
-
-  //ctx.textBaseline = 'top';
-  //ctx.textAlign = 'left';
-  //ctx.fillText(`user: [${username}]`, 50, 50);
-}; //just a placeholder screen
-
-var drawPreload = function drawPreload() {
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '15pt Courier';
-  ctx.fillStyle = 'white';
-  ctx.fillText('Loading App...', canvas.width / 2, canvas.height / 2);
-}; //loading images screen
-
-var drawWait = function drawWait() {
-  ctx_back.fillStyle = 'black';
-  ctx_back.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '15pt Courier';
-  ctx.fillStyle = 'white';
-  ctx.fillText('waiting for connection to server...', canvas.width / 2, canvas.height / 2);
-}; //waiting for server connction
-
-var drawTitle = function drawTitle() {
-  ctx.fillStyle = '#262626';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillStyle = 'white';
-  ctx.font = '30pt Courier';
-  ctx.fillText('some game title', canvas.width / 2, canvas.height / 2 - 10);
-  ctx.font = '15pt Courier';
-  ctx.fillText('- Click or press any button to play! -', canvas.width / 2, canvas.height / 2 + 40);
-  //ctx.drawImage(IMAGES.logo.img, canvas.width/2-25,canvas.height/2-100);
-}; //app title screen
-
-var drawGameOver = function drawGameOver() {
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillStyle = 'white';
-  ctx.font = '30pt Courier';
-  ctx.fillText('Game Ended', canvas.width / 2, canvas.height / 2 - 10);
-  ctx.font = '15pt Courier';
-  ctx.fillText('- Click or press any button to play again! -', canvas.width / 2, canvas.height / 2 + 40);
-  ctx.drawImage(IMAGES.logo.img, canvas.width / 2 - 25, canvas.height / 2 - 100);
-}; //game over screen
-
-var drawGameUI = function drawGameUI() {
-  // (targetCtx, string, x, y, font, color, center)
-  var userString = 'User [' + user.name + '] lvl[' + user.level + '] exp[ ' + user.exp + '/???] coins[' + user.coins + '] gems[' + user.gems + ']';
-  ctx_overlay.textBaseline = 'top';
-  fillText(ctx_overlay, userString, 10, 10, '15pt Courier', 'white');
-};
-//endregion
-'use strict';
-
 //--general---------------------------region
 var getMouse = function getMouse(e) {
   var offset = canvas_overlay.getBoundingClientRect();
@@ -234,42 +135,10 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
   return totalheight;
 }
 //endregion
-'use strict';
-
-var canvas = void 0,
-    ctx = void 0,
-    canvas_overlay = void 0,
-    ctx_overlay = void 0,
-    canvas_back = void 0,
-    ctx_back = void 0,
-    width = void 0,
-    height = void 0,
-    animationFrame = void 0;
-
-var socket = void 0,
-    hash = void 0,
-    username = void 0;
-
-var bgAudio = undefined,
-    effectAudio = undefined,
-    currentEffect = 0,
-    currentDirection = 1;
+"use strict";
 
 var mouse = { x: 0, y: 0 };
-var IMAGES = {};
-var ANIMATIONS = {};
-var cursor = undefined;
-var dragging = false;
 
-var STATES = {
-  wait: 'wait',
-  preload: 'preload',
-  title: 'title',
-  setupGame: 'setupGame',
-  game: 'game',
-  gameover: 'gameover'
-};
-var gameState = STATES.wait;
 var paused = false,
     debug = true;
 
@@ -281,162 +150,37 @@ var gacha = undefined,
     capsule = undefined;
 var slimes = {};
 
-var up = false;
-var down = false;
-var right = false;
-var left = false;
-
 //handle for key down events
 var keyDownHandler = function keyDownHandler(e) {
   var keyPressed = e.which;
 
   // W OR UP
-  if (keyPressed === 87 || keyPressed === 38) {
-    // move character up
-    up = true;
+  if (keyPressed === 38) {
+    //console.log('up key');
     e.preventDefault();
   }
   // A OR LEFT
-  else if (keyPressed === 65 || keyPressed === 37) {
-      // move character left
-      left = true;
+  else if (keyPressed === 37) {
+      //console.log('left key');
       e.preventDefault();
     }
     // S OR DOWN
-    else if (keyPressed === 83 || keyPressed === 40) {
-        // move character down
-        down = true;
+    else if (keyPressed === 40) {
+        //console.log('down key');
         e.preventDefault();
       }
       // D OR RIGHT
-      else if (keyPressed === 68 || keyPressed === 39) {
-          //move character right
-          right = true;
+      else if (keyPressed === 39) {
+          //console.log('right key');
           e.preventDefault();
         }
-};
-
-//handler for key up events
-var keyUpHandler = function keyUpHandler(e) {
-  var keyPressed = e.which;
-
-  // W OR UP
-  if (keyPressed === 87 || keyPressed === 38) {
-    // stop character from moving up
-    up = false;
-  }
-  // A OR LEFT
-  else if (keyPressed === 65 || keyPressed === 37) {
-      // stop character from moving left
-      left = false;
-    }
-    // S OR DOWN
-    else if (keyPressed === 83 || keyPressed === 40) {
-        // stop character from moving down
-        down = false;
-      }
-      // D OR RIGHT
-      else if (keyPressed === 68 || keyPressed === 39) {
-          // stop character from moving right
-          right = false;
-        }
-};
-
-var test = function test() {
-  console.log('test!');
-};
-
-var doOnMouseMove = function doOnMouseMove(e) {
-  mouse = getMouse(e);
-  cursor.x = mouse.x;
-  cursor.y = mouse.y;
-};
-var emptyFunct = function emptyFunct() {};
-var doOnMouseDown = function doOnMouseDown(e) {
-  setAnim(cursor, 'click', 'once');
-  dragging = true;
-};
-var doOnMouseUp = function doOnMouseUp(e) {
-  setAnim(cursor, 'click', 'onceReverse', function () {
-    return setAnim(cursor, 'default', 'default');
-  });
-  dragging = false;
-};
-var doOnMouseOut = function doOnMouseOut(e) {
-  dragging = false;suspendPlayerControls();
-};
-var doOnMouseIn = function doOnMouseIn(e) {
-  restorePlayerControls();
-};
-
-var stateHandler = function stateHandler() {
-  ctx_overlay.clearRect(0, 0, canvas_overlay.width, canvas_overlay.height);
-
-  if (gameState === STATES.wait) {
-    waitLoop();
-  } else if (gameState === STATES.preload) {
-    preloadLoop();
-  } else if (gameState === STATES.setupGame) {
-    startGame();
-  } else if (gameState === STATES.title) {
-    titleLoop();
-  } else if (gameState === STATES.game) {
-    gameUpdateLoop();
-  } else if (gameState === STATES.gameover) {
-    gameOverLoop();
-  }
-
-  if (cursor != undefined) {
-    playAnim(ctx_overlay, cursor);
-  }
-
-  animationFrame = requestAnimationFrame(stateHandler);
-};
-
-var submitLogin = function submitLogin() {
-  //hideLoginBox();
-  //username = document.querySelector('#test-login-name').value;
-  //todo send ajax request here
 };
 
 var init = function init() {
   //setupCanvas(); 
   setupSockets();
 
-  //get user
-
-
-  resetGame();
-
-  //setupSound();
-
-  //preloadImages(toLoadImgs, IMAGES);
-  //preloadImages(toLoadAnims, ANIMATIONS);
-  //animationFrame = requestAnimationFrame(stateHandler);
-
-  //play audio
-  //playBgAudio();
-};
-
-//window.onload = init;
-
-var pauseGame = function pauseGame() {
-  paused = true;
-  //stop animation loop
-  cancelAnimationFrame(animationFrame);
-
-  stopBgAudio();
-};
-
-var resumeGame = function resumeGame() {
-  //stop animation loop just in case
-  cancelAnimationFrame(animationFrame);
-
-  playBgAudio();
-  paused = false;
-
-  //call update
-  requestAnimationFrame(stateHandler);
+  window.onkeydown = keyDownHandler;
 };
 
 var toggleDebug = function toggleDebug() {
@@ -463,11 +207,6 @@ var handleSlime = function handleSlime(e) {
   e.preventDefault();
 
   $('#slimeMessage').animate({ width: 'hide' }, 350);
-
-  if ($('#slimeName').val() == '') {
-    handleError("RAWR! All fields are required.");
-    return false;
-  }
 
   sendAjax('POST', $('#slimeForm').attr('action'), $('#slimeForm').serialize(), function () {
     loadSlimesFromServer();
@@ -501,50 +240,273 @@ var SlimeList = function SlimeList(props) {
   if (props.slimes.length === 0) {
     return React.createElement(
       'div',
-      { className: 'slimeList' },
+      { className: 'cards' },
       React.createElement(
-        'h3',
-        { className: 'emptySlime' },
-        'No Slimes yet'
-      )
+        'div',
+        { className: 'cardHolder' },
+        React.createElement(
+          'div',
+          { key: slime._id, className: 'card' },
+          React.createElement('img', { src: 'assets/img/0.png', alt: 'slime' }),
+          React.createElement(
+            'div',
+            { className: 'card-over' },
+            'no slimes yet! '
+          )
+        )
+      ),
+      React.createElement('div', { className: 'side' })
     );
   }
 
   var slimeNodes = props.slimes.map(function (slime) {
     var num = 0;
+    var nm = 'base';
     if (slime.id) num = slime.id;
+
+    if (SLIMES[slime.name]) nm = slime.name;
     var img = num + '.png';
     img = '/assets/img/' + img;
-    return React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: img, alt: 'slime face', className: 'slimeView' }),
+
+    var fav = 'favorite_border';
+    if (slime.fav) fav = 'favorite';
+
+    var lvl = 0;if (slime.lvl) lvl = slime.lvl;
+
+    return (
+      //<div key={slime._id} className='slime'>
+      //  <img src={img} alt='slime face' className='slimeView' />
+      //  <h3 className='slimeName'>Nickname: {slime.name}</h3>
+      //  <h3 className='slimeAge'>id: {slime.id}</h3>
+      //</div>
       React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Nickname: ',
-        slime.name
-      ),
-      React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: ',
-        slime.id
+        'div',
+        { key: slime._id, className: 'card' },
+        React.createElement('img', { src: img, alt: slime._id }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons' },
+            fav
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            'lvl: ',
+            lvl
+          )
+        )
       )
     );
   });
 
-  return React.createElement(
-    'div',
-    { className: 'slimeList' },
-    slimeNodes
+  return (
+    //<div className='slimeList'>
+    React.createElement(
+      'div',
+      { className: 'cards' },
+      React.createElement(
+        'div',
+        { className: 'cardHolder' },
+        slimeNodes
+      ),
+      React.createElement('div', { className: 'side' })
+    )
   );
 };
 
 var loadSlimesFromServer = function loadSlimesFromServer() {
   sendAjax('GET', '/getSlimes', null, function (data) {
-    ReactDOM.render(React.createElement(SlimeList, { slimes: data.slimes }), document.querySelector('#slimes'));
+    slimes = data.slimes;
+    console.dir(slimes);
+    ReactDOM.render(React.createElement(SlimeList, { slimes: data.slimes }), document.querySelector('#content'));
+    initBox();
   });
+};
+
+var getSlimesFromServer = function getSlimesFromServer() {
+  sendAjax('GET', '/getSlimes', null, function (data) {
+    slimes = data.slimes;
+  });
+};
+
+var loadHome = function loadHome() {
+  ReactDOM.render(React.createElement(Home, null), document.querySelector('#content'));
+};
+
+var Home = function Home() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'div',
+      { className: 'slider' },
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's1', checked: 'true' }),
+      React.createElement(
+        'div',
+        { className: 'slide blue' },
+        '[about]'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's2' }),
+      React.createElement(
+        'div',
+        { className: 'slide green' },
+        'news 1'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's3' }),
+      React.createElement(
+        'div',
+        { className: 'slide purple' },
+        'news 2'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's4' }),
+      React.createElement(
+        'div',
+        { className: 'slide red' },
+        'updates'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's5' }),
+      React.createElement(
+        'div',
+        { className: 'slide orange' },
+        'gachapons'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's6' }),
+      React.createElement(
+        'div',
+        { className: 'slide yellow' },
+        'more info'
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'slider-controls' },
+      React.createElement('label', { htmlFor: 's1' }),
+      React.createElement('label', { htmlFor: 's2' }),
+      React.createElement('label', { htmlFor: 's3' }),
+      React.createElement('label', { htmlFor: 's4' }),
+      React.createElement('label', { htmlFor: 's5' }),
+      React.createElement('label', { htmlFor: 's6' })
+    )
+  );
+};
+
+var loadShop = function loadShop() {
+  ReactDOM.render(React.createElement(Shop, null), document.querySelector('#content'));
+};
+
+var Shop = function Shop() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'div',
+      { className: 'slider' },
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's1', checked: 'true' }),
+      React.createElement(
+        'div',
+        { className: 'slide blue' },
+        '[machine 1]'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's2' }),
+      React.createElement(
+        'div',
+        { className: 'slide green' },
+        '[machine 2]'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's3' }),
+      React.createElement(
+        'div',
+        { className: 'slide purple' },
+        '[machine 3]'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's4' }),
+      React.createElement(
+        'div',
+        { className: 'slide red' },
+        'machine 4'
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'slider-controls' },
+      React.createElement('label', { htmlFor: 's1' }),
+      React.createElement('label', { htmlFor: 's2' }),
+      React.createElement('label', { htmlFor: 's3' }),
+      React.createElement('label', { htmlFor: 's4' })
+    ),
+    React.createElement(
+      'div',
+      { className: 'shop-over' },
+      React.createElement(
+        'div',
+        { id: 'shop-buy-coin', className: 'button' },
+        React.createElement(
+          'span',
+          null,
+          '[250]Buy!'
+        )
+      ),
+      React.createElement(
+        'div',
+        { id: 'shop-buy-gem', className: 'button' },
+        React.createElement(
+          'span',
+          null,
+          '[15]Buy!'
+        )
+      )
+    )
+  );
+};
+
+var loadPlay = function loadPlay() {
+  ReactDOM.render(React.createElement(Play, null), document.querySelector('#content'));
+};
+
+var Play = function Play() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'div',
+      { className: 'slider' },
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's1', checked: 'true' }),
+      React.createElement(
+        'div',
+        { className: 'slide blue' },
+        '- Feature coming soon! -'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's2' }),
+      React.createElement(
+        'div',
+        { className: 'slide green' },
+        'choose a team of 3 slimes,'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's3' }),
+      React.createElement(
+        'div',
+        { className: 'slide purple' },
+        'face off against opponents,'
+      ),
+      React.createElement('input', { type: 'radio', name: 'ma-slider', id: 's4' }),
+      React.createElement(
+        'div',
+        { className: 'slide red' },
+        ' competitions to gain exp/loot! - '
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'slider-controls' },
+      React.createElement('label', { htmlFor: 's1' }),
+      React.createElement('label', { htmlFor: 's2' }),
+      React.createElement('label', { htmlFor: 's3' }),
+      React.createElement('label', { htmlFor: 's4' })
+    )
+  );
 };
 
 //todo make a popup with detailed user info
@@ -588,23 +550,36 @@ var UserData = function UserData(props) {
   );
 };
 var showUserData = function showUserData() {
-  ReactDOM.render(React.createElement(UserData, { user: data.user }), document.querySelector('#userPopup'));
+  //ReactDOM.render(
+  //  <UserData user={data.user} />, document.querySelector('#userPopup')
+  //);
+
+  document.querySelector('#user-coins').textContent = user.coins;
+  document.querySelector('#user-gems').textContent = user.gems;
+  document.querySelector('#user-name').textContent = user.name;
 };
 
 var getUserDataFromServer = function getUserDataFromServer() {
   sendAjax('GET', '/getUser', null, function (data) {
-    //console.dir(data.user);
     user = data.user;
+    console.dir(user);
+    showUserData();
   });
 };
 
 var setupMain = function setupMain(csrf) {
-  ReactDOM.render(React.createElement(SlimeForm, { csrf: csrf }), document.querySelector('#makeSlime'));
+  //ReactDOM.render(
+  //  <SlimeForm csrf={csrf} />, document.querySelector('#makeSlime')
+  //);
+  //
+  //ReactDOM.render(
+  //  <SlimeList slimes={[]} />, document.querySelector('#content')
+  //);
 
-  ReactDOM.render(React.createElement(SlimeList, { slimes: [] }), document.querySelector('#slimes'));
-
-  loadSlimesFromServer();
+  getSlimesFromServer();
   getUserDataFromServer();
+
+  loadHome();
 };
 
 var getToken = function getToken() {
@@ -616,743 +591,605 @@ var getToken = function getToken() {
 var RenderSlimeList = function RenderSlimeList() {
   return React.createElement(
     'div',
-    { className: 'slimeList' },
-    React.createElement(
-      'h2',
-      { style: { display: 'inline-block' } },
-      'Slime Dex:'
-    ),
-    '  ',
+    { className: 'cards' },
     React.createElement(
       'div',
-      { style: { display: 'inline-block', float: 'right' }, id: 'showSlimes', className: 'navlink' },
+      { className: 'cardHolder' },
       React.createElement(
-        'a',
-        null,
-        'Show Your Slimes'
-      )
-    ),
-    React.createElement('br', null),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/0.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: base'
+        'div',
+        { key: slime._id, className: 'card', value: 'base' },
+        React.createElement('img', { src: '/assets/img/0.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#0'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 0'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/1.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Naruto'
+        'div',
+        { key: slime._id, className: 'card', value: 'naruto' },
+        React.createElement('img', { src: '/assets/img/1.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#1'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 1'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/2.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Navi'
+        'div',
+        { key: slime._id, className: 'card', value: 'navi' },
+        React.createElement('img', { src: '/assets/img/2.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#2'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 2'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/3.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Death the Kid'
+        'div',
+        { key: slime._id, className: 'card', value: 'devil' },
+        React.createElement('img', { src: '/assets/img/8.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#3'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 3'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/4.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Saitama'
+        'div',
+        { key: slime._id, className: 'card', value: 'saitama' },
+        React.createElement('img', { src: '/assets/img/4.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#4'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 4'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/5.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Pikachu'
+        'div',
+        { key: slime._id, className: 'card', value: 'pikachu' },
+        React.createElement('img', { src: '/assets/img/5.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#5'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 5'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/6.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Link'
+        'div',
+        { key: slime._id, className: 'card', value: 'link' },
+        React.createElement('img', { src: '/assets/img/6.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#6'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 6'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/7.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Angel'
+        'div',
+        { key: slime._id, className: 'card', value: 'angel' },
+        React.createElement('img', { src: '/assets/img/7.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#7'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 7'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/8.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Devil'
+        'div',
+        { key: slime._id, className: 'card', value: 'death the kid' },
+        React.createElement('img', { src: '/assets/img/3.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#8'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 8'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/9.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Shades'
+        'div',
+        { key: slime._id, className: 'card', value: 'shades' },
+        React.createElement('img', { src: '/assets/img/9.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#9'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 9'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/10.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Maple Slime'
+        'div',
+        { key: slime._id, className: 'card', value: 'maple slime' },
+        React.createElement('img', { src: '/assets/img/10.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#10'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 10'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/11.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Bat'
+        'div',
+        { key: slime._id, className: 'card', value: 'bat' },
+        React.createElement('img', { src: '/assets/img/11.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#11'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 11'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/12.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Wings'
+        'div',
+        { key: slime._id, className: 'card', value: 'wings' },
+        React.createElement('img', { src: '/assets/img/12.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#12'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 12'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/13.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Mudkip'
+        'div',
+        { key: slime._id, className: 'card', value: 'mudkip' },
+        React.createElement('img', { src: '/assets/img/13.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#13'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 13'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/14.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Derp'
+        'div',
+        { key: slime._id, className: 'card', value: 'derp' },
+        React.createElement('img', { src: '/assets/img/14.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#14'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 14'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/15.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Totoro'
+        'div',
+        { key: slime._id, className: 'card', value: 'totoro' },
+        React.createElement('img', { src: '/assets/img/15.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#15'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 15'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/16.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Penguin'
+        'div',
+        { key: slime._id, className: 'card', value: 'penguin' },
+        React.createElement('img', { src: '/assets/img/16.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#16'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 16'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/17.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Goggles'
+        'div',
+        { key: slime._id, className: 'card', value: 'goggles' },
+        React.createElement('img', { src: '/assets/img/17.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#17'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 17'
-      )
-    ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/18.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Rin Okumura'
+        'div',
+        { key: slime._id, className: 'card', value: 'rin okumura' },
+        React.createElement('img', { src: '/assets/img/18.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#18'
+          )
+        )
       ),
       React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 18'
+        'div',
+        { key: slime._id, className: 'card', value: 'liquid slime' },
+        React.createElement('img', { src: '/assets/img/19.png', alt: 'slime' }),
+        React.createElement(
+          'div',
+          { className: 'card-over' },
+          React.createElement(
+            'i',
+            { className: 'material-icons fav-no' },
+            'favorite'
+          ),
+          React.createElement(
+            'b',
+            { className: 'lvl' },
+            '#19'
+          )
+        )
       )
     ),
-    React.createElement(
-      'div',
-      { key: slime._id, className: 'slime' },
-      React.createElement('img', { src: '/assets/img/19.png', alt: 'slime face', className: 'slimeView' }),
-      React.createElement(
-        'h3',
-        { className: 'slimeName' },
-        'Name: Liquid Slime'
-      ),
-      React.createElement(
-        'h3',
-        { className: 'slimeAge' },
-        'id: 19'
-      )
-    )
+    React.createElement('div', { className: 'side' })
   );
 };
 
-$(document).ready(function () {
+var initBox = function initBox() {
+  var boxes = document.querySelectorAll('.card');
+  var delay = .05; // seconds
+
+  var last = boxes[0].offsetTop;
+  var col = 0;
+  var row = 0;
+
+  var id = 0;
+  var active = 'card_0';
+
+  for (var i = 0; i < boxes.length; i++) {
+    if (boxes[i].offsetTop > last) {
+      row = row + 1;
+      col = 0;
+    }
+    var last = boxes[i].offsetTop;
+
+    boxes[i].style.animationDelay = (row + col) * delay + 's';
+    boxes[i].id = 'card_' + id;
+    boxes[i].onclick = function () {
+
+      document.querySelector('#' + active).classList.remove('card-selected');
+      active = this.id;
+      document.querySelector('#' + active).classList.add('card-selected');
+
+      var card = document.querySelector('#' + active);
+      var idNum = card.id.split('card_')[1];
+
+      var side = document.querySelector('.side');
+
+      var img = side.querySelector('img');
+      img.src = card.querySelector('img').src;
+
+      var nm = document.querySelector('#side-name');
+      nm.textContent = '#' + slimes[idNum].id + " " + slimes[idNum].name;
+
+      var num = document.querySelector('#side-lvl');
+      num.textContent = card.querySelector('.lvl').textContent;
+    }.bind(boxes[i]);
+    col = col + 1;
+    id++;
+  };
+
+  var card = document.querySelector('#' + active);
+  var idNum = card.id.split('card_')[1];
+  var side = document.querySelector('.side');
+  side.innerHTML = '';
+
+  var nm = document.createElement('h3');
+  nm.id = 'side-name';
+
+  if (slimes[idNum]) {
+    nm.textContent = '#' + slimes[idNum].id + " " + slimes[idNum].name;
+  } else nm.textContent = '#??? Slime';
+
+  var img = document.createElement('img');
+  img.src = card.querySelector('img').src;
+
+  var lvl = document.createElement('h3');
+  lvl.id = 'side-lvl';
+
+  if (slimes[idNum]) lvl.textContent = slimes[idNum].lvl;else lvl.textContent = 'lvl: 1';
+
+  side.appendChild(nm);
+  side.appendChild(img);
+  side.appendChild(lvl);
+};
+
+window.onload = function () {
   getToken();
   setupSockets();
+  initBox();
+  init();
+
+  var menu_selected = 'home';
+
+  ReactDOM.render(React.createElement(SlimeForm, null), document.querySelector('#makeSlime'));
 
   document.querySelector('#slimeListButton').onclick = function () {
-    ReactDOM.render(React.createElement(RenderSlimeList, null), document.querySelector('#slimes'));
-    document.querySelector('#showSlimes').onclick = function () {
-      loadSlimesFromServer();
-    };
+    ReactDOM.render(React.createElement(RenderSlimeList, null), document.querySelector('#content'));
+    initBox();
   };
+  document.querySelector('#menu-home').onclick = function () {
+    //ReactDOM.render(
+    //  <SlimeList slimes={[]} />, document.querySelector('#content')
+    //);
+    loadHome();
+
+    document.querySelector('#menu-' + menu_selected).classList.remove('menu-selected');
+    menu_selected = 'home';
+    document.querySelector('#menu-' + menu_selected).classList.add('menu-selected');
+  };
+  document.querySelector('#menu-shop').onclick = function () {
+    //ReactDOM.render(
+    //  <SlimeList slimes={[]} />, document.querySelector('#content')
+    //);
+    loadShop();
+
+    document.querySelector('#menu-' + menu_selected).classList.remove('menu-selected');
+    menu_selected = 'shop';
+    document.querySelector('#menu-' + menu_selected).classList.add('menu-selected');
+  };
+  document.querySelector('#menu-play').onclick = function () {
+    //ReactDOM.render(
+    //  <SlimeList slimes={[]} />, document.querySelector('#content')
+    //);
+    loadPlay();
+
+    document.querySelector('#menu-' + menu_selected).classList.remove('menu-selected');
+    menu_selected = 'play';
+    document.querySelector('#menu-' + menu_selected).classList.add('menu-selected');
+  };
+  document.querySelector('#menu-slimes').onclick = function () {
+    ReactDOM.render(React.createElement(SlimeList, { slimes: [] }), document.querySelector('#content'));
+
+    loadSlimesFromServer();
+    initBox();
+
+    document.querySelector('#menu-' + menu_selected).classList.remove('menu-selected');
+    menu_selected = 'slimes';
+    document.querySelector('#menu-' + menu_selected).classList.add('menu-selected');
+  };
+  document.querySelector('#menu-misc').onclick = function () {
+    //ReactDOM.render(
+    //  <SlimeList slimes={[]} />, document.querySelector('#content')
+    //);
+
+
+    //document.querySelector(`#menu-${menu_selected}`).classList.remove('menu-selected');
+    //document.querySelector(`#menu-${menu_selected}`).classList.add('menu-selected');
+    //menu_selected = 'misc';
+  };
+
   document.querySelector('#aboutButton').onclick = function () {
-    ReactDOM.render(React.createElement(RenderAbout, null), document.querySelector('#slimes'));
+    ReactDOM.render(React.createElement(RenderAbout, null), document.querySelector('#content'));
+    console.log('...');
   };
   document.querySelector('#docButton').onclick = function () {
-    ReactDOM.render(React.createElement(RenderDoc, null), document.querySelector('#slimes'));
+    ReactDOM.render(React.createElement(RenderDoc, null), document.querySelector('#content'));
   };
-});
-'use strict';
-
-//--vars-----------------------------region
-var bgTracks = {
-  floralLife: { src: 'assets/audio/Floral Life (Henesys).mp3', lastTime: 0 },
-  exploration: { src: 'assets/audio/Exploration - Xenoblade Chronicles 2.mp3', lastTime: 0 },
-  current: {}
 };
-var effectSounds = ["1.mp3", "2.mp3", "3.mp3", "4.mp3", "5.mp3", "6.mp3", "7.mp3", "8.mp3"];
-var firstTrack = 'exploration';
+"use strict";
 
-//image preloading vv
-var loadQueue = -1;
-var numLoaded = 0;
+var socket = void 0,
+    hash = void 0,
+    username = void 0;
 
-var toLoadImgs = [{
-  name: 'logo',
-  url: 'assets/img/logo.png'
-}];
-var toLoadAnims = [{
-  name: 'cursor',
-  url: 'assets/img/cursor.png',
-  animData: {
-    default: {
-      row: 1,
-      cols: 4,
-      total: 4,
-      playSpeed: 16,
-      height: 50,
-      width: 50
-    },
-    availible: {
-      row: 2,
-      cols: 3,
-      playSpeed: 10
-    },
-    unavailible: {
-      row: 3,
-      cols: 3,
-      playSpeed: 10
-    },
-    click: {
-      row: 4,
-      cols: 3,
-      playSpeed: 4
-    }
-  }
-}, //cursor
-{
-  name: 'coins',
-  url: 'assets/img/coins.png',
-  animData: {
-    default: {
-      row: 1,
-      cols: 4,
-      total: 3,
-      playSpeed: 10,
-      height: 24,
-      width: 25
-    },
-    copper: {
-      row: 1,
-      cols: 4,
-      playSpeed: 10
-    },
-    silver: {
-      row: 2,
-      cols: 4,
-      playSpeed: 10
-    },
-    gold: {
-      row: 3,
-      cols: 4,
-      playSpeed: 10
-    }
-  }
-}, //coins
-{
-  name: 'moneys',
-  url: 'assets/img/moneys.png',
-  animData: {
-    default: {
-      row: 1,
-      cols: 4,
-      total: 2,
-      playSpeed: 10,
-      height: 31,
-      width: 33
-    },
-    bills: {
-      row: 1,
-      cols: 4,
-      playSpeed: 10
-    },
-    bag: {
-      row: 2,
-      cols: 4,
-      playSpeed: 10
-    }
-  }
-}, //moneys
-{
-  name: 'capsule',
-  url: 'assets/img/capsule.png',
-  animData: {
-    default: {
-      row: 1,
-      cols: 3,
-      total: 1,
-      playSpeed: 10,
-      height: 67,
-      width: 82
-    }
-  }
-}, //capsule
-{
-  name: 'gacha',
-  url: 'assets/img/gacha.png',
-  animData: {
-    default: {
-      row: 1,
-      cols: 3,
-      total: 1,
-      playSpeed: 10
-    }
-  }
-}, //gacha
-{
-  name: 'logo',
-  url: 'assets/img/logo.png'
-}];
-//endregion
+var setupSockets = function setupSockets() {
+  socket = io.connect();
 
-//--image preloader-----------------region
-var preloadImages = function preloadImages(imgArr, targetList) {
-  if (loadQueue === -1) loadQueue = 0;
-  targetList.toloadcount = 0;
-  targetList.loadcount = 0;
+  //if this user joins
+  socket.on("joined", function (data) {
+    setUser(data);
+  });
 
-  var _loop = function _loop(i) {
-    var data = imgArr[i];
+  //if other players join
+  socket.on("otherJoined", function (data) {
+    setOtherUser(data);
+  });
 
-    var img = new Image();
-    img.src = data.url;
-    targetList.toloadcount++;
-    loadQueue++;
-    //console.log(`toloadcount: ${targetList.toloadcount}`);
+  //if this user leaves
+  socket.on("left", function (data) {
+    removeUser(data);
+  });
 
-    img.onload = function (e) {
-      targetList[data.name] = {
-        img: img,
-        name: data.name,
-        height: img.naturalHeight,
-        width: img.naturalWidth
-      };
-      if (data.animData) targetList[data.name].animData = data.animData;
-
-      targetList.loadcount++;
-      numLoaded++;
-      //console.log(`loaded: ${data.name}, loadcount: ${targetList.loadcount}, anim?: ${data.animData}`);
-    };
-  };
-
-  for (var i = 0; i < imgArr.length; i++) {
-    _loop(i);
-  }
-};
-//endregion
-
-//--animation/sprites----------------------region
-var Sprite = function Sprite(data) {
-  var sprite = {};
-
-  var sheet = data.sheet;
-  sprite.sheet = sheet;
-  sprite.animData = sheet.animData;
-  sprite.filter = 0;
-  sprite.x = data.x || 0;
-  sprite.y = data.y || 0;
-
-  sprite.width = sheet.animData.default.width || sheet.width / sheet.animData.default.cols;
-  sprite.height = sheet.animData.default.height || sheet.height / sheet.animData.default.total;
-  sprite.z = data.z || 0;
-
-  sprite.frameCount = 0;
-  sprite.frame = 0;
-  sprite.currentAnim = {
-    name: 'default',
-    onDone: emptyFunct
-  };
-  sprite.playSpeed = sheet.animData.default.speed || 14;
-  sprite.playStyle = false;
-
-  sprite.moveUp = false;
-  sprite.moveLeft = false;
-  sprite.moveRight = false;
-  sprite.moveDown = false;
-  sprite.playDir = -1;
-
-  setAnim(sprite, 'default');
-
-  return sprite;
+  //if other players leave
+  socket.on("otherLeft", function (data) {
+    removeOtherUser(data);
+  });
 };
 
-var setAnim = function setAnim(targetSprite, anim, playStyle, onDone) {
-  targetSprite.frameWidth = targetSprite.sheet.width / targetSprite.animData[anim].cols;
+var setUser = function setUser(data) {
+  hash = data.hash;
 
-  targetSprite.frameHeight = targetSprite.animData[anim].height || targetSprite.height;
-  targetSprite.frameWidth = targetSprite.animData[anim].width || targetSprite.width;
-
-  if (targetSprite.currentAnim.name != anim) targetSprite.frame = 0;
-  targetSprite.row = targetSprite.animData[anim].row;
-  targetSprite.cols = targetSprite.animData[anim].cols;
-  targetSprite.currentAnim.name = anim;
-  targetSprite.playSpeed = targetSprite.animData[anim].playSpeed;
-
-  if (playStyle === 'pingPong') {
-    targetSprite.playStyle = 'pingPong';
-    if (targetSprite.playDir == -1) targetSprite.playDir = 0;
-  } else if (playStyle === 'once') {
-    targetSprite.playStyle = 'once';
-    targetSprite.playDir = 0;
-  } else if (playStyle === 'onceReverse') {
-    targetSprite.playStyle = 'onceReverse';
-    targetSprite.playDir = 1;
-    targetSprite.frame = targetSprite.cols - 1;
-  } else if (playStyle === 'reverse') {
-    targetSprite.playStyle = 'reverse';
-    targetSprite.playDir = 1;
-    targetSprite.frame = targetSprite.cols - 1;
-  }
-
-  targetSprite.currentAnim.onDone = onDone || emptyFunct;
-};
-var playAnim = function playAnim(ctx, targetSprite, freeze) {
-  targetSprite.frameCount++;
-
-  if (freeze) targetSprite.frame = 0;else if (targetSprite.playStyle == 'pingPong') {
-    if (targetSprite.frameCount % targetSprite.playSpeed === 0) {
-
-      if (targetSprite.playDir == 0) {
-        if (targetSprite.frame < targetSprite.cols - 1) {
-          targetSprite.frame++;
-        } else {
-          targetSprite.playDir = 1;
-        }
-      }
-      if (targetSprite.playDir == 1) {
-        if (targetSprite.frame > 0) {
-          targetSprite.frame--;
-        } else {
-          targetSprite.playDir = 0;
-          targetSprite.frame++;
-        }
-      }
-    }
-  } else if (targetSprite.playStyle == 'once' || targetSprite.playStyle == 'onceReverse') {
-    if (targetSprite.frameCount % targetSprite.playSpeed === 0) {
-
-      if (targetSprite.playDir == 0) {
-        if (targetSprite.frame < targetSprite.cols - 1) {
-          targetSprite.frame++;
-        } else if (targetSprite.currentAnim.onDone != emptyFunct) {
-          targetSprite.currentAnim.onDone();
-          targetSprite.currentAnim.onDone = emptyFunct;
-        }
-      }
-      if (targetSprite.playDir == 1) {
-        if (targetSprite.frame > 0) {
-          targetSprite.frame--;
-        } else if (targetSprite.currentAnim.onDone != emptyFunct) {
-          targetSprite.currentAnim.onDone();
-          targetSprite.currentAnim.onDone = emptyFunct;
-        }
-      }
-    }
-  } else if (targetSprite.playStyle == 'reverse') {
-    //switch frames after time
-    if (targetSprite.frameCount % targetSprite.playSpeed === 0) {
-      //move through animation and loop
-      if (targetSprite.frame > 0) {
-        targetSprite.frame--;
-      } else {
-        targetSprite.frame = targetSprite.cols - 1;
-      }
-    }
-  } else {
-    //switch frames after time
-    if (targetSprite.frameCount % targetSprite.playSpeed === 0) {
-      //move through animation and loop
-      if (targetSprite.frame < targetSprite.cols - 1) {
-        targetSprite.frame++;
-      } else {
-        targetSprite.frame = 0;
-      }
-    }
-  }
-
-  ctx.drawImage(targetSprite.sheet.img, targetSprite.frameWidth * targetSprite.frame, targetSprite.height * (targetSprite.row - 1), targetSprite.frameWidth, targetSprite.frameHeight, targetSprite.x, targetSprite.y, targetSprite.frameWidth, targetSprite.frameHeight);
-};
-//endregion
-
-//--sound---------------------------region
-var setupSound = function setupSound() {
-  bgAudio = document.querySelector("#bgAudio");
-  bgAudio.volume = 0.16;
-  effectAudio = document.querySelector("#effectAudio");
-  effectAudio.volume = 0.3;
-  bgAudio.src = bgTracks[firstTrack].src;
-  bgAudio.current = bgTracks[firstTrack];
+  console.log(data.name + ' [you] joined server');
 };
 
-var playBgAudio = function playBgAudio(reset) {
-  if (reset) bgAudio.currentTime = 0;
-  bgAudio.play();
+var setOtherUser = function setOtherUser(data) {
+
+  console.log(data.name + ' joined server');
 };
 
-var swapBg = function swapBg(track, reset) {
-  bgTracks.current.lastTime = bgAudio.currentTime;
-  bgTracks.current = bgTracks[track];
-  bgAudio.src = bgTracks[track].src;
+var removeUser = function removeUser(data) {
+  hash = 0;
 
-  bgAudio.currentTime = bgTracks.current.lastTime;
-  if (reset) bgAudio.currentTime = bgTracks.current.lastTime = 0;
-  bgAudio.play();
+  console.log(data.name + ' [you] left the server');
 };
 
-var stopBgAudio = function stopBgAudio(reset) {
-  bgAudio.pause();
-  if (reset) bgAudio.currentTime = 0;
+var removeOtherUser = function removeOtherUser(data) {
+
+  console.log(data.name + ' left the server');
 };
-
-var playEffect = function playEffect() {
-  currentEffect = Math.round(Math.random() * 8) - 1;
-  if (currentEffect < 0) currentEffect = 0;
-  effectAudio.src = "assets/audio/" + effectSounds[currentEffect];
-  //console.log(currentEffect);
-  effectAudio.play();
-};
-//endregion
-'use strict';
-
-//--initial game setup-------------------region
-var setupCanvas = function setupCanvas() {
-  canvas = document.querySelector('#canvas_main');
-  ctx = canvas.getContext('2d');
-  canvas_overlay = document.querySelector('#canvas_overlay');
-  ctx_overlay = canvas_overlay.getContext('2d');
-  canvas_back = document.querySelector('#canvas_back');
-  ctx_back = canvas_back.getContext('2d');
-
-  width = canvas.width;
-  height = canvas.height;
-};
-
-//--events-------------------------region
-var setupEvents = function setupEvents() {
-  document.onkeydown = keyDownHandler;
-  document.onkeyup = keyUpHandler;
-
-  //find the mouse position
-  canvas_overlay.onmousemove = doOnMouseMove;
-  //console.log('assigned startup game keys');
-}; //events for gameplay
-
-var assignStartupEvents = function assignStartupEvents() {
-  if (gameState === STATES.title) {
-    document.onkeyup = function () {
-      removeStartupEvents();
-      gameState = STATES.setupGame;
-      console.log('setting up game');
-    };
-    canvas_overlay.onmousedown = function () {
-      removeStartupEvents();
-      gameState = STATES.setupGame;
-      console.log('setting up game');
-    };
-  }
-  //console.log('assigned pregame keys');
-}; //event to start game
-var removeStartupEvents = function removeStartupEvents() {
-  //console.log('removed pregame keys');
-  if (gameState === STATES.title) {
-    document.onkeyup = undefined;
-    canvas_overlay.onmousedown = undefined;
-  }
-}; //remove those events
-
-//endregion
 'use strict';
 
 var SLIMES = {
-  0: {
-    name: '',
+  base: {
+    name: 'base',
+    id: 0,
     type: '',
     stats: {
       atk: 0,
       spd: 0
     },
     skills: []
+  },
+
+  naruto: {
+    name: 'naruto',
+    id: 1
   }
 };
 
@@ -1409,174 +1246,6 @@ var SKILLS = {
     debuff: 0
   }
 };
-"use strict";
-
-var socket = void 0,
-    hash = void 0,
-    username = void 0;
-
-var setupSockets = function setupSockets() {
-  socket = io.connect();
-
-  //if this user joins
-  socket.on("joined", function (data) {
-    setUser(data);
-  });
-
-  //if other players join
-  socket.on("otherJoined", function (data) {
-    setOtherUser(data);
-  });
-
-  //if this user leaves
-  socket.on("left", function (data) {
-    removeUser(data);
-  });
-
-  //if other players leave
-  socket.on("otherLeft", function (data) {
-    removeOtherUser(data);
-  });
-};
-
-var setUser = function setUser(data) {
-  hash = data.hash; // set this client's hash to the unique hash the server gives them
-  //players[data.hash] = data.hash;
-  //playerCount += 1;
-
-  console.log(data.name + ' [you] joined server');
-  gameState = STATES.preload; // start animating;
-};
-
-var setOtherUser = function setOtherUser(data) {
-  //players[data.hash] = data;
-  //playerCount += 1;
-
-  console.log(data.name + ' joined server');
-};
-
-var removeUser = function removeUser(data) {
-  hash = 0; // set this client's hash to the unique hash the server gives them
-  //players = { };
-  //playerCount = 0;
-
-  console.log(data.name + ' [you] left the server');
-};
-
-var removeOtherUser = function removeOtherUser(data) {
-  //delete players[data.hash];
-  //playerCount -= 1;
-
-  console.log(data.name + ' left the server');
-};
-'use strict';
-
-var resetGame = function resetGame() {
-  //game setup
-  playerCount = 0;
-  players = {};
-
-  up = false;
-  left = false;
-  right = false;
-  down = false;
-};
-
-var startGame = function startGame() {
-  //assign game key/mouse events
-  setupEvents();
-
-  console.log('starting up game');
-
-  //game setup
-  //TODO setup game stuff
-
-  //go to game loop
-  gameState = STATES.game;
-
-  //todo replace with react call
-  //showLoginBox();
-}; //setup and start the game
-
-var doOnPreloadDone = function doOnPreloadDone() {
-  console.log('done loading images');
-  gameState = STATES.title;
-  assignStartupEvents();
-
-  cursor = new Sprite({ sheet: ANIMATIONS.cursor });
-  setAnim(cursor, 'default', 'default');
-
-  // gacha sprite
-  gacha = new Sprite({ sheet: ANIMATIONS.gacha });
-  setAnim(gacha, 'default', 'pingPong');
-  gacha.x = 10;gacha.y = height - gacha.height - 10;
-  capsule = new Sprite({ sheet: ANIMATIONS.capsule });
-  setAnim(capsule, 'default', 'pingPong');
-  capsule.x = canvas.width / 2 - capsule.width / 2;capsule.y = canvas.height / 2 - 110;
-
-  document.onmousemove = doOnMouseMove;
-  document.onmousedown = doOnMouseDown;
-  document.onmouseup = doOnMouseUp;
-  document.onmouseout = doOnMouseOut;
-  document.onmousein = doOnMouseIn;
-};
-
-var suspendPlayerControls = function suspendPlayerControls() {
-  document.onkeydown = undefined;
-  document.onkeyup = undefined;
-};
-var restorePlayerControls = function restorePlayerControls() {
-  document.onkeydown = keyDownHandler;
-  document.onkeyup = keyUpHandler;
-};
-
-//--GAME LOOPS---------------------region
-var waitLoop = function waitLoop() {
-  drawWait();
-  console.log('waiting for connection to server...');
-}; //wait until client joined the server
-
-var preloadLoop = function preloadLoop() {
-  //check if images are loaded then go to startup
-  if (loadQueue == numLoaded) {
-    doOnPreloadDone();
-    return;
-  }
-
-  drawPreload();
-
-  console.log('loading game...');
-};
-
-var titleLoop = function titleLoop() {
-  drawTitle();playAnim(ctx, capsule);
-};
-
-var gameOverLoop = function gameOverLoop() {
-  drawGameOver();
-
-  console.log('game over');
-};
-
-var gameUpdateLoop = function gameUpdateLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx_overlay.clearRect(0, 0, canvas_overlay.width, canvas_overlay.height);
-
-  drawPlaceholder();
-
-  //check player input
-
-  //update game
-
-  //draw game
-  drawPlayers();
-
-  playAnim(ctx, gacha);
-
-  drawGameUI();
-};
-
-//endregion
 'use strict';
 
 var handleError = function handleError(message) {

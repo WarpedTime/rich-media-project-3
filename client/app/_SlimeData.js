@@ -1,6 +1,7 @@
 const SLIMES = {
-  0: {
-    name: '',
+  base: {
+    name: 'base',
+    id: 0,
     type: '',
     stats: {
       atk: 0,
@@ -10,6 +11,11 @@ const SLIMES = {
       
     ]
   },
+  
+  naruto:{
+    name: 'naruto',
+    id: 1,
+  }
 };
 
 

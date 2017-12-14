@@ -25,32 +25,25 @@ const setupSockets = () => {
 };
 
 const setUser = (data) => {
-  hash = data.hash; // set this client's hash to the unique hash the server gives them
-  //players[data.hash] = data.hash;
-  //playerCount += 1;
+  hash = data.hash;
 
   console.log( data.name + ' [you] joined server');
-  gameState = STATES.preload // start animating;
 };
 
 const setOtherUser = (data) => {
-  //players[data.hash] = data;
-  //playerCount += 1;
+
   
   console.log( data.name + ' joined server');
 };
 
 const removeUser = (data) => {
-  hash = 0; // set this client's hash to the unique hash the server gives them
-  //players = { };
-  //playerCount = 0;
+  hash = 0; 
 
   console.log( data.name + ' [you] left the server');
 };
 
 const removeOtherUser = (data) => {
-  //delete players[data.hash];
-  //playerCount -= 1;
+
   
   console.log( data.name + ' left the server');
 };

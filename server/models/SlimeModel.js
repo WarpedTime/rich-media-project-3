@@ -21,6 +21,23 @@ const SlimeSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
+  
+  lvl: {
+    type: Number,
+    min: 1,
+    default: 1,
+  },
+  
+  exp: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
+  
+  fav: {
+    type: Boolean,
+    default: false,
+  },
 
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -44,7 +61,7 @@ SlimeSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return SlimeModel.find(search).select('name id').exec(callback);
+  return SlimeModel.find(search).select('name id lvl exp fav').exec(callback);
 };
 
 SlimeModel = mongoose.model('Slime', SlimeSchema);

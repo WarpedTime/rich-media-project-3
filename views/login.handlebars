@@ -10,20 +10,61 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  
+  <style>
+  
+    .button {
+      margin-top:10px;
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      overflow: hidden;
+      padding: 15px 30px;
+      border: solid 3px white;
+      border-radius: 3px;
+      font: bold 12px sans-serif;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 1px;
+      color: white;
+      transition: .35s;
+      color: black
+    }
+    
+    .button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 110%;
+      height: 100%;
+      width: 200%;
+      background: black;
+      transform: skewX( -15deg );
+      transition: inherit;
+    }
+    
+    .button:hover {
+      color: white;
+      }
+      .button:hover:before {
+        right: -10%;
+      }
+    
+    .button span {
+      position: relative;
+    } 
+  </style>
 </head>
 <body> 
-  <nav><a href="/login"><img id="logo" src="/assets/img/favicon.png" alt="logo"/></a>
-    <div class="navlink"><b>Gacha Slimez:</b></div>
-    <div class="navlink nav-right"><a id="signupButton" href="/signup">Sign up</a></div>
-    <div class="navlink nav-right"><a id="loginButton" href="/login">Login</a></div>
+  <nav class="">
+    <div class="nav-item" style="padding-left: 0.2em;"><a><img src="/assets/img/favicon.png" alt="logo"/><b>Gacha Slimez!</b></a></div>
+    <div class="nav-item"><a><b>About</b></a></div>
+    <div class="nav-item"><a><b>Documentation</b></a></div>
     
+    <div class="nav-item nav-right"><a id="signupButton" href="/signup">Sign up</a></div>
+    <div class="nav-item nav-right"><a id="loginButton" href="/login">Login</a></div>
   </nav>
-  <nav id="sub-nav">
-    <div id="aboutButton" class="navlink"><a>About</a></div>
-    <div id="docButton" class="navlink"><a>Documentation</a></div>  
-  </nav>
-  
-  
+    
   <section class='fill-height'>
     <section class="two-thirds left"><img id="logo" src="/assets/img/favicon.png" alt="face logo"/><p>[banner]</p></section>
     <section id="content" class="one-third right"></section>

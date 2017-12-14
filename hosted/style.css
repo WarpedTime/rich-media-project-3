@@ -20,16 +20,6 @@ header{
   text-align: center;
 }
 
-#test {
-  position: absolute;
-  left: 100vw;
-  transition: all ease-in-out 0.5s;
-}
-
-.slide-in{
-  transform: translateX(-300px);
-}
-
 .half{
   width: 50%;
 }
@@ -40,6 +30,7 @@ header{
 .two-thirds{
   width: 66.6%;
 }
+
 .detail-pannel{
   width: 100px;
 }
@@ -56,8 +47,77 @@ header{
   background-color: chartreuse
 }
 
+nav{
+  width:100%;
+  clear: both;
+  margin: 0;
+  background: #383838;
+  display: inline-block;
+  z-index: 9999;
+}
+nav:after{
+  clear: both;
+}
+nav img{
+  float: left;
+  height: 2.0em;
+  margin-top: -0.4em;
+  margin-right: 0.4em;
+}
+
+.nav-item{
+  margin: 0;
+  font-size: 1.3em;
+  height: 1.2em;
+  padding: 0.65em;
+  display: inline;
+  float: left;
+  transition: background 0.2s ease-in, color 0.2s ease-in;
+  color: rgba(255, 255, 255, 0.91);
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  z-index: 99999;
+}
+.nav-item:hover{
+  background: #a2a2a2;
+  transition: background 0.2s ease-in, color 0.2s ease-in;
+  color: white;
+  display:
+}
+
+.nav-item a, .nav-item a:link, .nav-item a:visited, .nav-item a:hover, .nav-item a:active {
+color: inherit;
+text-decoration: none;
+}
+
+.nav-right{
+  float: right;
+}
+
+.nav-purple{
+  background: #bc00bc;
+}
+.nav-purple .nav-item:hover{
+  background: #d157d1;
+}
+
+.nav-blue{
+  background: deepskyblue;
+}
+.nav-blue .nav-item:hover{
+  background: #a9e9ff;
+}
+.nav-grey{
+  background: #585858;
+}
+.nav-grey .nav-item:hover{
+  background: #838383;
+}
+
 .fill-height{
-  min-height: 73.5vh;
+  min-height: 85vh;
 }
 
 #footer {
@@ -92,66 +152,6 @@ header{
   user-select: none; /* Non-prefixed version, currently
   supported by Chrome and Opera */
 } /* so that the canvas cant be selected and mess up gameplay*/
-
-#logo {
-  height: 40px;
-  width: 40;
-  padding-top: 5px;
-  padding-left: 5px;
-  float:left;
-}
-
-nav {
-  width: 100%;
-  height: 50px;
-  background-color: #383838;
-}
-nav:nth-child(1) {
-  padding-left: 25px;
-}
-
-.navlink {
-  padding: 5px;
-  padding-top: 0.6em;
-  padding-left: 20px;
-  color: white;
-  font-size: 1.3em;
-  float: left;
-  display: inline-block;
-}
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: inherit;
-    transition: background-color 0.4s ease;
-}
-.navlink a:hover{
-  transition: background-color 0.8s ease;
-  background-color: #646464;
-}
-
-#sub-nav {
-  height: 45px;
-  background-color: #585858;
-}
-#sub-nav .navlink {
-  padding-top: 0.5em;
-  font-size: 1.15em;
-}
-#sub-nav .navlink a:hover {
-  background-color: #838383;
-}
-
-.nav-right {
-  padding-left: 0px;
-  padding-right: 20px;
-
-  float: right;
-  display: inline-block;
-}
-
 
 .slimeForm {
     border: 2px solid #338acc;
@@ -277,105 +277,268 @@ nav:nth-child(1) {
     z-index: 225;
     margin-top: -20px;
     margin-left: 135px;
-    height: 450px;
-    width: 300px;
-    -ms-transform: rotate(330deg);
-    -webkit-transform: rotate(330deg); 
-    transform: rotate(330deg);
+    //height: 450px;
+    //width: 300px;
 }
 
-#slimeViewContainer {
-  width: 100%;
-  min-height: 65vh;
+.cards{
+  //background-color: red;
+  display: flex;
+  flex-flow: row;
+  min-height: 70vh;
+  max-height: 100vh;
+}
+
+.cardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 auto;
+  overflow-y: scroll;
+  justify-content: space-evenly;
+}
+.side{
+  min-width: 350px;
+  max-width: 350px;
+  min-height: 300px;
+  flex: 1;
+  //background-color: blue;
+  text-align: center;
+}
+
+.side h3{
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.card {
+  flex: 1;
+  margin: 10px;
+  height: 135;
+  min-width: 120px;
+  max-width: 120px;
+  background: linear-gradient(#f5f5f5, #cccccc);
+  border-radius: 3px;
+  border: 3px solid black;
+  box-shadow: 0 2px 6px rgba(#000,.1);
+  transition: transform .25s ease;
+  animation: populate .5s ease-out normal backwards;
+  padding: 0.5em;
+  z-index: 0;
+  cursor: pointer;
+}
+.card img{
+  width: 100px;
+  height: 100px;
   margin: 0 auto;
   padding: 0;
-  padding-bottom: 0.45em;
-  border: 2px solid #000000;
-  border-left: none;
-  border-right: none;
+  //margin-top: -2em;
+  margin-left: 10px;
+  z-index: 0;
+}
+.card:hover {
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 5px 12px rgba(#000,.2);
+}
+.card .material-icons{
+  float: right;
+  padding: 0.15em;
+  margin-right: 0.15em;
+  margin-top: 1px;
+  z-index: 3;
+  border-radius: 50%;
+  background-color: white;
+}
+.card .lvl{
+  text-align: center;
+  font-size: 1.3em;
+  padding: 0.2em;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.card-over{
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  background: #f4f4f4;
+  border-radius: 0 0 3px 3px;
+  border-top: 2px solid black;
+  margin-top: 0.1em;
+}
+
+.card-selected{
+  //border: 3px solid #9e00d8;
+  background: white;
+}
+
+@keyframes populate {
+  0% {
+    transform: scale(0);
+  }
+}
+
+.game-nav{
+  margin: 0 auto;
+  padding: 0;
+  //margin-left: 10px ;
+  //background-color: green;
+  width: fit-content;
+  padding: 1em;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+}
+.game-nav .game-nav-item{
+  display: inline-block;
+  margin-left: 0.7em;
+}
+
+.user-currency{
+  display: block;
+  //background: yellow;
+  vertical-align: middle;
   
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  background: #e0e0e0;
-}
-
-#slimes {
-  max-height: 65vh;
-  border-radius: 4px;
-  margin: 0 auto;
-  padding: 0.5em;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  background: none;
-  overflow-y: scroll;
-  display: inline-block;
-}
-
-#slimeInfoPannel{
-  //margin: 5px;
-  padding: 0.5em;
-  min-width: 100px;
-  margin-left: -5px;
-  display: inline-block;
-}
-
-.slime {
-  width: 250px;
-  height: 200px;
-  min-height: 60px;
-  margin: 0 auto;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-right: 4px;
-  padding-bottom: 0.2em;
-  border: 5px solid #0d0d0d;
-  border-radius: 4px;
-  background-color: #909090;
-  overflow: hidden;
-  display: inline-block;
-}
-.slime:hover {
-  transition: border-color 1.2s ease-out;
-  border-color: rgba(255,255,255, 0.8);
-  transition: background-color 1.6s ease-out;
-  background-color: #cfd5d9;
-}
-
-img.slimeView {
+  padding: 0;
   margin: 0;
-  padding: 0.1em;
-  height: 100px;
-  width: 100px;
-  background-color: #e3eaef;
-  border: 4px solid #0d0d0d;
-  border-left: 0px;
-  border-top: 0px;
+  
+  height: 20px;
+  margin-top: -34px;
+}
+
+.coin-box{
+  flex: 1;
+  min-width: 50px;
+  border-radius: 3px;
+  padding-right: 5px;
+  border: 2px solid black;
+  margin-bottom: 5px;
+  background: linear-gradient(#f5f5f5, #cccccc);
+}
+.coin-box .coin-icon{
+  display: block;
+  float: left;
+  height: 100%;
+  width: 20px;
+  margin-right: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.coin-icon img{
+  height: 98%;
+  margin: 0;
+}
+
+.user-name{
+  margin-right: 1em;
+}
+.user-img{
+  float: right;
+}
+
+
+.v-div{
+  float: left;
+  height: 4em;
+  margin-right: 10px;
+  background: black;
+  border-radius: 5px;
+  width: 3px;
+  margin-top: -4px;
+}
+.v-div-r{
   display: inline-block;
+  height: 4em;
+  margin-left: 17px;
+  background: black;
+  border-radius: 5px;
+  width: 3px;
+  margin-top: -4px;
+  vertical-align: middle
 }
 
-h3.emptySlime {
-    width: 400px;
-    font-size: 1.5em;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 18px;
+.button {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  font: bold 0.9em 'calibri';
+  padding: 1.1em 1.4em;
+  border: solid 3px black;
+  border-radius: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: .35s;
+  background: white;
+  color: black;
+  cursor: pointer;
 }
-h3.slimeName {
-    display: inline-block;
-    text-align: left;
-    font-weight: bold;
-    padding-left: 65px;
-    font-size: 1.5em;
+.button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 110%;
+  height: 100%;
+  width: 200%;
+  background: black;
+  transform: skewX( -15deg );
+  transition: inherit;
+}
+.button:hover {
+  color: white;
+}
+.button:hover:before {
+  right: -10%;
+}
+.button span {
+  position: relative;
 }
 
-#slimeName {
-  width: 10em;
+.menu-selected{
+  background: black;
+  color: white;
+}
+.menu-red:before{
+  background: red;
+}.menu-red.menu-selected{
+  background: red;
+  color: white;
+}
+.menu-purple:before{
+  background: #b400b4;
+}.menu-purple.menu-selected{
+  background: #b400b4;
+  color: white;
+}
+.menu-blue:before{
+  background: #0045ff;
+}.menu-blue.menu-selected{
+  background: #0045ff;
+  color: white;
+}
+.menu-orange:before{
+  background: #ffce00;
+} .menu-orange.menu-selected{
+  background: #ffce00;
+  color: white;
 }
 
-.slime:first-child {
-    margin-top: 10px;
+.shop-over{
+  position: relative;
+  float: right;
+  margin-top: -200px;
+  width: 200px;
+  height: 100px;
+  display: inline-block;
+  z-index: 300;
 }
-.slime:last-child {
-    margin-bottom:10px;
+.shop-over .button{
+  display: inline-block;
+  float: right
 }
-
+.shop-over img{
+  width: 20px;
+  height: 20px;
+  float: left;
+}
